@@ -12,8 +12,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -202,28 +203,35 @@ public class RecordActivity2 extends AppCompatActivity implements EasyPermission
         screenWidth = systemparams.screenWidth;
         screenHeight = systemparams.screenHeight;
         recordViewWidth = screenWidth;
-        recordViewHeight = (int) ((double) _Request.getVideoSessionClient(this).getProjectOptions().videoHeight / (double) _Request.getVideoSessionClient(this).getProjectOptions().videoWidth
+        recordViewHeight = (int) (
+                (double) _Request.getVideoSessionClient(this).getProjectOptions().videoHeight
+                        / (double) _Request.getVideoSessionClient(this).getProjectOptions().videoWidth
                 * recordViewWidth);
 
         int topHeight = screenHeight / 9;
-        LinearLayout recordLayout = (LinearLayout) findViewById(R.id.record_view_layout);
-        int top = 0, bootom = 0;
-        //为了保证 浏览和录制生成的视频一致，并且浏览过程中视频不可以变形。所以需要使recordview 的比例和视频比例一致。
-        //策略是：尽量底部出现黑边，如果黑边超过顶部大小，就使得top变成黑色。用户可以自行调整策略，使得view和视频比例一致即可。
-        int leave = screenHeight - recordViewHeight;
-        if (recordViewHeight > screenHeight)
-            top = bootom = leave / 2;
-        else {
-            if (leave > topHeight) {
-                top = topHeight;
-                bootom = leave - top;
-            } else {
-                top = 0;
-                bootom = leave;
-            }
-
-        }
-        recordLayout.setPadding(0, top, 0, bootom);
+        FrameLayout recordLayout = (FrameLayout) findViewById(R.id.record_view_layout);
+        ViewGroup.LayoutParams layoutParams = recordLayout.getLayoutParams();
+        layoutParams.width = recordViewWidth;
+        layoutParams.height = recordViewHeight;
+        recordLayout.setLayoutParams(layoutParams);
+        //
+//        int top = 0, bottom = 0;
+//        //为了保证 浏览和录制生成的视频一致，并且浏览过程中视频不可以变形。所以需要使recordview 的比例和视频比例一致。
+//        //策略是：尽量底部出现黑边，如果黑边超过顶部大小，就使得top变成黑色。用户可以自行调整策略，使得view和视频比例一致即可。
+//        int leave = screenHeight - recordViewHeight;
+//        if (recordViewHeight > screenHeight)
+//            top = bottom = leave / 2;
+//        else {
+//            if (leave > topHeight) {
+//                top = topHeight;
+//                bottom = leave - top;
+//            } else {
+//                top = 0;
+//                bottom = leave;
+//            }
+//
+//        }
+//        recordLayout.setPadding(0, top, 0, bottom);
 
         //默认如果是前置摄像头隐藏闪光灯
         if(mRecordView.isFrontCamera()){
@@ -379,9 +387,9 @@ public class RecordActivity2 extends AppCompatActivity implements EasyPermission
 
         @Override
         public void onProgress(long timestamp) {
-            Log.i("qupai", "onProgress");
+            Log.i("qupai", "onProgress"+timestamp);
             time = timestamp;
-            timeLayout.update(time);
+            timeLayout.update(time);//更新timeLayout
             if(time >= maxTimeLength){
                 stopRecord();
             }

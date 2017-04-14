@@ -61,7 +61,7 @@ public class QupaiApplication extends Application {
 
         QupaiHttpFinal.getInstance().initOkHttpFinal();
 
-        initVideoClientInfo(360,640);
+        initVideoClientInfo(480,640);
         initImageLoader();
         initVideoCache();
         initFinalGallery();
@@ -81,16 +81,17 @@ public class QupaiApplication extends Application {
 
     public void initVideoClientInfo(int w,int h) {
         if(w == 0){
-            w = 360;
+            w = 480;
         }
         if (h == 0 ){
             h = 640;
         }
         ProjectOptions options = new ProjectOptions.Builder()
                 //输出视频帧率
-                .setVideoFrameRate(24)
+                .setVideoFrameRate(30)
                 //关键帧间隔
                 .setIFrameInterval(2)
+                .setVideoSize(480 , 640)
                 //时长区间.单位：毫秒
                 .setDurationRange(1000, 17000)
                 .get();
