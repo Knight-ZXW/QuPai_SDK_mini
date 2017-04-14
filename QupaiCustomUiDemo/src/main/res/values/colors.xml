@@ -166,4 +166,5 @@
 
     <color name="yellow_button_normal">#ff6d00</color>
     <color name="yellow_button_pressed">#d86500</color>
+    <color name="orange_40">#FFA726</color>
 </resources>

@@ -31,7 +31,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/qupai_action_bar_size_recorder"
             android:layout_gravity="bottom"
-            android:background="@color/black_transparent_50">
+            >
 
             <View
                 android:layout_width="0px"
@@ -172,7 +172,7 @@
         android:layout_height="0dp"
         android:layout_gravity="center"
         android:layout_weight="1"
-        android:background="@color/black_transparent_50"
+        android:background="@color/white_alpha_0"
         android:gravity="center"
         android:orientation="horizontal">
 
@@ -252,7 +252,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="5dp"
                     android:layout_alignParentTop="true"
-                    android:background="#30000000" />
+                     />
 
                 <TextView
                     android:id="@+id/time_text"

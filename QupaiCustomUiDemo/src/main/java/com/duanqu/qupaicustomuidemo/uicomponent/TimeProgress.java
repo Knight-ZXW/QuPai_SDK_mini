@@ -8,6 +8,8 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
 
+import com.duanqu.qupaicustomuidemo.R;
+
 import java.util.ArrayList;
 
 /**
@@ -40,9 +42,9 @@ public class TimeProgress extends View {
     private void initPaint()
     {
         recorded = new Paint();
-        recorded.setColor(0xffc600);
+        recorded.setColor(getResources().getColor(R.color.orange_40));
         paused = new Paint();
-        paused.setColor(Color.BLACK);
+        paused.setColor(Color.BLUE);
         minTimePaint = new Paint();
         minTimePaint.setColor(Color.WHITE);
         deltePaint = new Paint();
