@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" 
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_vertical"
+    android:gravity="center_vertical"
+    android:orientation="vertical" >
+    
+    <LinearLayout
+        android:id="@+id/manager_res_item_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="9dp"
+        android:layout_gravity="center_vertical"
+        android:gravity="center_vertical"
+        android:orientation="horizontal" >
+        
+	    <ImageView
+	        android:id="@+id/manager_res_item_image"
+	        android:layout_width="60dp"
+	        android:layout_height="60dp"
+	        android:layout_marginTop="10dp"
+	        android:layout_marginBottom="10dp"
+	        android:layout_gravity="center"
+	        android:background="@drawable/overlay_effect_qupai_chooser_list_item_bg"
+	        android:contentDescription="@null" />
+	    
+	    <LinearLayout 
+	        android:id="@+id/friends_user_name_remark"
+        	android:layout_width="0dp"
+        	android:layout_height="wrap_content"
+        	android:layout_weight="1"
+       		android:layout_marginLeft="9dp"
+       		android:layout_gravity="center_vertical"
+       		android:orientation="vertical" >
+       		
+	        <TextView 
+	            android:id="@+id/manager_res_item_name"
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:ellipsize="end"
+        		android:singleLine="true"
+        		android:text="好鸡冻啊"
+        		android:textColor="@color/qupai_black_opacity_70pct"
+        		android:textSize="18sp" />
+	        
+	        <TextView 
+	            android:id="@+id/manager_res_item_description"
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:layout_marginTop="5dp"
+	            android:ellipsize="end"
+        		android:singleLine="true"
+        		android:text="萌萌哒"
+        		android:textColor="@color/qupai_black_opacity_30pct"
+        		android:textSize="15sp" />
+	    
+	    </LinearLayout>
+	    
+	    <CheckBox
+		     android:id="@+id/cb_manager_check"
+		     android:layout_width="wrap_content"
+		     android:layout_height="wrap_content"
+		     android:button="@drawable/cb_check_selector"
+		     android:layout_marginLeft="15dp"
+		     android:layout_marginRight="10dp"
+		     android:clickable="false"
+		     android:checked="false"
+		     android:focusable="false"
+		     android:focusableInTouchMode="false" />
+	        
+	</LinearLayout>
+
+	<ImageView
+		android:layout_width="match_parent"
+		android:layout_height="1dp"
+		android:layerType="software"
+		android:layout_marginLeft="10dp"
+		android:layout_marginRight="10dp"
+		android:src="@drawable/bg_item_dash_line" />
+    
+</LinearLayout>

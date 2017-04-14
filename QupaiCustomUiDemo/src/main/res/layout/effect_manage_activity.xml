@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/action_bar"
+        layout="@layout/ab_qupai_manager_resource_video" />
+
+
+    <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@android:color/white"
+            android:orientation="vertical" >
+        <com.astuetz.PagerSlidingTabStrip
+                android:id="@+id/face_and_music_indicator"
+                android:layout_height="40dp"
+                android:layout_width="match_parent"/>
+        <android.support.v4.view.ViewPager
+                android:id="@+id/face_and_music_manager_pager"
+                android:layout_width="fill_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background="@color/qupai_gray_0xf2" />
+    </LinearLayout>
+    <LinearLayout
+            android:id="@+id/face_music_manager_delete_layout"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_gravity="bottom"
+            android:visibility="gone"
+            android:background="@color/qupai_gray_0xf2"
+            android:orientation="horizontal">
+
+        <TextView
+                android:id="@+id/face_music_manager_select_btn"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/all_select"
+                android:textColor="@color/qupai_black_opacity_70pct"
+                android:textSize="18sp" />
+
+        <TextView
+                android:id="@+id/face_music_manager_delete_btn"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/delete"
+                android:textColor="@color/defalut_primary_color"
+                android:textSize="18sp" />
+
+    </LinearLayout>
+</LinearLayout>

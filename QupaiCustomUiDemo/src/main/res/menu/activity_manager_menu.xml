@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+	<item android:id="@+id/menu_edit"
+          android:actionLayout="@layout/action_bar_manager_button"
+          android:title="@string/setting_feedback_send"
+          android:showAsAction="always" />
+</menu>

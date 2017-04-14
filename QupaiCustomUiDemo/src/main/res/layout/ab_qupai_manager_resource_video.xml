@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:background="@android:color/white"
+    android:layout_height="?android:attr/actionBarSize" >
+
+    <ImageButton
+        android:id="@+id/resource_manager_closeBtn"
+        style="?android:attr/actionButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="13dp"
+        android:layout_gravity="left|center_vertical"
+        android:contentDescription="@null"
+        android:src="@drawable/btn_qupai_arrow_left_white" />
+
+    <TextView
+        android:id="@+id/resource_manager__title"
+        style="?android:attr/windowTitleStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/face_and_music_manager"
+        android:textColor="@android:color/black" />
+
+
+    <TextView
+        android:id="@+id/btn_edit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="20dp"
+        android:textColor="@color/qupai_black_opacity_70pct"
+        android:textSize="20sp"
+        android:gravity="center"
+        android:layout_gravity="right|center_vertical" />
+</FrameLayout>

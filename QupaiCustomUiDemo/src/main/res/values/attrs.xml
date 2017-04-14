@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="qupaiRecordNextStepTickButton" format="reference" />
+    <attr name="qupaiNextStepTickButton" format="reference" />
+    <attr name="qupaiNextStepArrowButton" format="reference" />
+    <attr name="qupaiDIYOverlayEditbar" format="reference" />
+    <attr name="qupaiDIYOverlayEditbar_frame" format="reference" />
+    <attr name="qupaiDIYOverlayEditbar_progress" format="reference" />
+    <attr name="qupaiDIYOverlayContent_frame" format="reference" />
+    <attr name="qupaiDIYOverlayDotte_frame" format="reference" />
+    <attr name="qupaiDIYOverlayEditbarStart" format="reference" />
+    <attr name="qupaiDIYOverlayCancel" format="reference" />
+    <attr name="qupaiDIYOverlayTransform" format="reference" />
+    <attr name="qupaiDIYOverlayText" format="reference" />
+    <attr name="qupaiDIYOverlayMirror" format="reference" />
+    <attr name="qupaiDiyMaskColor" format="reference" />
+    <attr name="qupaiEditEffectTabIndicator" format="reference" />
+    <attr name="qupaiEditEffectTextColor" format="reference" />
+    <attr name="qupaiEditEffectAudioMixIcon" format="reference" />
+    <attr name="qupaiEffectListMoreItem" format="reference" />
+    <attr name="qupaiBeautySkinHead" format="reference" />
+    <attr name="qupaiRecorderTimelineClip" format="reference" />
+    <attr name="qupaiTabIndicator" format="reference" />
+    <attr name="qupaiSweepLeft" format="reference" />
+    <attr name="qupaiSweepright" format="reference" />
+    <attr name="qupaiOverlayListDownload" format="reference" />
+    <attr name="qupaiSelfTimerButton" format="reference" />
+    <attr name="qupaiDubbingButton" format="reference" />
+    <attr name="qupaiDubbingAmplitudeProgress" format="reference" />
+    <attr name="qupaiTrimRecordColor" format="reference" />
+
+
+    <declare-styleable name="FanProgressBar">
+        <attr name="circleMaxProgress" format="float|reference"/>
+        <attr name="circleProgress" format="float|reference"/>
+        <attr name="internalRadius" format="integer|reference"/>
+        <attr name="outRadius" format="integer|reference|enum">
+            <enum name="match_parent" value="-1"/>
+        </attr>
+        <attr name="internalBackgroundColor" format="color|reference"/>
+        <attr name="outBackgroundColor" format="color|reference"/>
+        <attr name="startAngle" format="float|reference"/>
+        <attr name="internalAlpha" format="float|reference"/>
+        <attr name="outAlpha" format="float|reference"/>
+        <attr name="centerX" format="float|reference"/>
+        <attr name="centerY" format="float|reference"/>
+        <attr name="outDirection" format="enum">
+            <enum name="clockwise" value="1"/>
+            <enum name="counterclockwise" value="-1"/>
+        </attr>
+        <attr name="internalDirection" format="enum">
+            <enum name="clockwise" value="1"/>
+            <enum name="counterclockwise" value="-1"/>
+        </attr>
+        <attr name="initStyle" format="enum">
+            <enum name="fill" value="1"/>
+            <enum name="empty" value="0"/>
+        </attr>
+    </declare-styleable>
+
+</resources>

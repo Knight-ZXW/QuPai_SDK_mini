@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:keepScreenOn="true"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/record_view_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.duanqu.qupai.minisdk.view.RecordView
+            android:id="@+id/record_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </LinearLayout>
+
+    <com.duanqu.qupai.android.widget.AspectRatioLayout
+        android:id="@+id/preview_frame"
+        android:layout_width="match_parent"
+        android:layout_height="0dp">
+
+        <View
+            android:id="@+id/View_focus_area"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:background="@drawable/qupai_camera_focus_area"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/TextView_zoomIndicator"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_gravity="top|right"
+            android:layout_marginRight="9dp"
+            android:layout_marginTop="9dp"
+            android:background="@drawable/qupai_camera_zoom_indicator_bg"
+            android:drawableTop="@drawable/ic_qupai_camera_zoom"
+            android:gravity="center|bottom"
+            android:includeFontPadding="false"
+            android:paddingBottom="3dp"
+            android:paddingTop="7dp"
+            android:textColor="@android:color/white"
+            android:textSize="15sp"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/TextView_countdownTips"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@android:color/transparent"
+            android:gravity="center"
+            android:shadowColor="#66000000"
+            android:shadowRadius="6"
+            android:textColor="@android:color/white"
+            android:textSize="150sp"
+            android:visibility="gone" />
+
+        <LinearLayout
+            android:id="@+id/LinearLayout_countdownTips"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/bg_tip_self_timer"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="20dp"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tip_qupai_self_timer_countdown"
+                android:textColor="@android:color/black"
+                android:textSize="20sp" />
+
+            <LinearLayout
+                android:id="@+id/photo_tip_self_timer_countdown_cancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/tip_qupai_self_timer_countdown_cancel_1"
+                    android:textColor="@android:color/black"
+                    android:textSize="20sp" />
+
+                <ImageView
+                    android:id="@+id/photo_ic_self_timer_countdown"
+                    android:layout_width="21sp"
+                    android:layout_height="21sp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/theme_default_btn_qupai_self_timer" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/tip_qupai_self_timer_countdown_cancel_2"
+                    android:textColor="@android:color/black"
+                    android:textSize="20sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+    </com.duanqu.qupai.android.widget.AspectRatioLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:orientation="vertical">
+
+
+        <RelativeLayout
+            android:id="@+id/layout_capture"
+            android:layout_width="match_parent"
+            android:layout_height="118dp"
+            android:layout_gravity="center"
+            android:background="@color/black_transparent_50"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/imageView_capture"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:button="@null"
+                android:contentDescription="@null"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:src="@drawable/btn_qupai_camera_capture">
+
+                <requestFocus />
+            </ImageView>
+
+            <FrameLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentLeft="true"
+                android:layout_toLeftOf="@id/imageView_capture">
+
+                <ImageView
+                    android:id="@+id/ImageView_clipCanceller"
+                    style="@style/Widget.ActionButton.Qupai.Recorder"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:contentDescription="@null"
+                    android:scaleType="center"
+                    android:src="@drawable/btn_qupai_clip_delete_last"
+                    android:visibility="gone" />
+
+                <ImageView
+                    android:id="@+id/btn_gallery"
+                    style="@style/Widget.ActionButton.Qupai.Recorder"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:contentDescription="@null"
+                    android:scaleType="center"
+                    android:src="@drawable/btn_qupai_link_draft_box" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:layout_toRightOf="@id/imageView_capture">
+
+                <ImageView
+                    android:id="@+id/imageView_nextBtn"
+                    style="@style/Widget.ActionButton.Qupai.Recorder"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:contentDescription="@null"
+                    android:scaleType="center"
+                    android:src="?attr/qupaiRecordNextStepTickButton" />
+            </FrameLayout>
+        </RelativeLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/action_bar"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/qupai_action_bar_size_recorder"
+            android:background="@color/black_transparent_50">
+
+            <ImageView
+                android:id="@+id/ImageView_backspace"
+                style="@style/Widget.ActionButton.Qupai.Recorder"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="7dp"
+                android:contentDescription="@null"
+                android:scaleType="center"
+                android:src="@drawable/btn_qupai_cancel_cross" />
+
+            <View
+                android:layout_width="0px"
+                android:layout_height="0px"
+                android:layout_weight="1" />
+
+            <ImageView
+                android:id="@+id/ImageButton_countdownSwitch"
+                style="@style/Widget.ActionButton.Qupai.Recorder"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="14dp"
+                android:src="@drawable/theme_default_btn_qupai_self_timer" />
+
+            <ImageView
+                android:id="@+id/ImageButton_cameraSwitch"
+                style="@style/Widget.ActionButton.Qupai.Recorder"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="14dp"
+                android:contentDescription="@null"
+                android:src="@drawable/btn_qupai_camera_switch_facing" />
+
+            <ImageView
+                android:id="@+id/switch_light"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="20dp"
+                android:padding="4dp"
+                android:src="@drawable/btn_qupai_toggle_camera_flashlight" />
+        </LinearLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.duanqu.qupaicustomuidemo.uicomponent.TimelineTimeLayout
+                android:id="@+id/time_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:background="#00000000">
+
+                <com.duanqu.qupaicustomuidemo.uicomponent.TimeProgress
+                    android:id="@+id/time_progress"
+                    android:layout_width="match_parent"
+                    android:layout_height="5dp"
+                    android:layout_alignParentTop="true"
+                    android:background="#30000000" />
+
+                <TextView
+                    android:id="@+id/time_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:background="@drawable/recorder_qupai_time_balloon_tip_bg_left"
+                    android:textColor="@android:color/white"
+                    android:textSize="10sp" />
+            </com.duanqu.qupaicustomuidemo.uicomponent.TimelineTimeLayout>
+        </FrameLayout>
+    </LinearLayout>
+</FrameLayout>

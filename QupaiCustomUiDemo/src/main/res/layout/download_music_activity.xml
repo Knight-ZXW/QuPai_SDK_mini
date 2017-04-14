@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+	<TextView
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:gravity="center_horizontal"
+		android:textSize="24sp"
+		android:layout_gravity="center_horizontal"
+		android:text="@string/music_download_sample"/>
+
+	<FrameLayout
+		android:layout_width="match_parent"
+		android:layout_height="50dp"
+		android:layout_marginTop="9dp"
+		android:layout_gravity="center" >
+		<Button
+			android:id="@+id/download_music_btn"
+			android:layout_width="match_parent"
+			android:layout_height="50dp"
+			android:layout_gravity="center"
+			android:text="@string/music_download"
+			android:textSize="12sp" />
+
+		<Button
+			android:id="@+id/download_music_used_btn"
+			android:layout_width="match_parent"
+			android:layout_height="50dp"
+			android:layout_gravity="center"
+			android:text="@string/music_used"
+			android:textSize="12sp"
+			android:visibility="gone" />
+
+		<ProgressBar
+			android:id="@+id/download_music_progress"
+			android:layout_width="match_parent"
+			android:layout_height="10dp"
+			android:layout_gravity="center"
+			android:visibility="gone" />
+	</FrameLayout>
+     
+</LinearLayout>

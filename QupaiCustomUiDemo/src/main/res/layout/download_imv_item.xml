@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/imv_download_item_layout"
+    android:layout_width="match_parent"
+    android:layout_height="120dp">
+    
+    <ImageView 
+        android:id="@+id/imv_download_item_image_thumb"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:scaleType="centerCrop"
+        android:layout_gravity="center" />
+    
+    <ImageView 
+        android:id="@+id/imv_download_item_image_shade"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="center"
+        android:layout_gravity="center"
+        android:background="@color/black_transprent_40" />
+    
+    <ImageView 
+        android:id="@+id/imv_download_item_image_new"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|left"
+        android:src="@drawable/imv_download_new" />
+    
+    <LinearLayout
+        android:id="@+id/imv_download_item_info_layout" 
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_vertical"
+        android:gravity="center_vertical"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:orientation="horizontal" >
+        
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical" >
+        
+	        <TextView 
+	            android:id="@+id/imv_download_item_text_name"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:textColor="@android:color/white"
+	            android:textSize="21sp"
+	            android:textStyle="bold" />
+	        
+	        <TextView 
+	            android:id="@+id/imv_download_item_text_description"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_marginTop="5dp"
+	            android:textColor="@android:color/white"
+	            android:textSize="13sp" />
+        
+        </LinearLayout>
+        
+        <LinearLayout
+            android:id="@+id/imv_download_item_btn_layout" 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:layout_marginLeft="40dp"
+            android:orientation="horizontal" >
+            
+            <Button 
+                android:id="@+id/imv_download_item_view_btn"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:background="@drawable/bg_imv_play_btn_selector" />
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp">
+            
+                <Button
+                    android:id="@+id/imv_download_item_download_btn"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:textColor="@android:color/white"
+                    android:textSize="12sp"
+                    android:background="@drawable/bg_imv_download_rect" />
+
+                <com.duanqu.qupai.widget.CircleProgressBar
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:id="@+id/imv_download_item_download_pb"
+                    app:backgroundWidth="35dp"
+                    app:backgroundHeight="35dp"
+                    app:progressWidth="22dp"
+                    app:progressThickness="2.5dp"
+                    android:background="@drawable/bg_parser_preview_unlock_rect"
+                    android:visibility="gone"/>
+
+            </FrameLayout>
+            
+        </LinearLayout>
+        
+    </LinearLayout>
+    
+</FrameLayout>

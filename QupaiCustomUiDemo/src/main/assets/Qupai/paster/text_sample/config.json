@@ -1,0 +1,45 @@
+{
+  "pid": 1,
+  "fid": 1,
+  "du": 1.0,
+  "type": 0,
+  "x": 320.0,
+  "y": 320.0,
+  "w": 470.0,
+  "h": 160.0,
+  "a": 0.0,
+  "fx": 0.0,
+  "fy": 0.0,
+  "fw": 0.0,
+  "fh": 0.0,
+  "n": "text_sample",
+  "c": 8.0,
+
+  "pText":"请输入文字",
+  "tFont": "SentyTEA",
+  "tMinSize":21.0,
+  "tSize":48,
+  "tLeft": 235.0,
+  "tTop": 80.0,
+  "tWidth": 460.0,
+  "tHeight": 120.0,
+
+  "strokeR":51,
+  "strokeG":51,
+  "strokeB":51,
+  "strokeWidth":4,
+
+  "pExtend": 1,
+  "extendSection":0,
+
+  "tR": 255.0,
+  "tG": 255.0,
+  "tB": 255.0,
+
+  "tBegin": 0.0,
+  "tEnd": 1.0,
+
+  "timeArry": [
+    {"beginTime": 0.0,"endTime": 1.0, "shrink":0, "minTime":0.5, "maxTime": 0}
+  ]
+}

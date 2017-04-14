@@ -1,0 +1,14 @@
+<com.duanqu.qupai.widget.CircleProgressBar
+	android:layout_width="53dp"
+	android:layout_height="53dp"
+	app:backgroundWidth="53dp"
+	app:backgroundHeight="53dp"
+	android:layout_gravity="center"
+	android:visibility="gone"
+	app:progressWidth="39dp"
+	app:progressThickness="4dp"
+	app:progressColor="@color/white_alpha_0"
+	app:progressThicknessColor="@color/qupai_black_opacity_5pct"
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"/>
+

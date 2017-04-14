@@ -1,0 +1,2 @@
+include ':QupaiCustomUiDemo', ':GalleryFinal', ':NilUiSDK-release'
+

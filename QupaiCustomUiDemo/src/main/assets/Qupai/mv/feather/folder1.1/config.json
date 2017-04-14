@@ -1,0 +1,88 @@
+{
+  "musicIcon": "icon_music.png",
+  "duration": 15,
+  "music": "music.mp3",
+  "effects": [
+    {
+      "src": "",
+      "eid": 1,
+      "range": "",
+      "video": "main"
+    },
+    {
+      "info": {
+        "animation": "main"
+      },
+      "src": "1",
+      "range": "",
+      "filterName": "Animation",
+      "eid": 2
+    },
+    {
+      "src": "",
+      "eid": 3,
+      "range": "",
+      "video": "screen.mp4"
+    },
+    {
+      "src": "2,3",
+      "range": "",
+      "filterName": "Screen",
+      "eid": 4
+    }
+  ],
+  "filters": [
+    {
+      "images": [
+        ""
+      ],
+      "name": "Screen",
+      "fragment": " \nprecision highp float;\nuniform sampler2D inputImageTexture; //video\nuniform sampler2D inputImageTexture2; //screen\nvarying vec2 textureCoordinate;\nvoid main()\n{\nvec4 video = texture2D(inputImageTexture, textureCoordinate);\nvec4 screen = texture2D(inputImageTexture2, textureCoordinate);\nmediump vec4 whiteColor = vec4(1.0);\ngl_FragColor = whiteColor - ((whiteColor - screen) * (whiteColor - video));\n}"
+    }
+  ],
+  "time": [
+    0
+  ],
+  "name": "feather",
+  "musicName": "It's only you",
+  "icon": "icon.png",
+  "animations": [
+    {
+      "name": "main",
+      "frames": [
+        {
+          "t": 0,
+          "a": 0.0,
+          "track": "a",
+          "fh": 640.0,
+          "cy": 320.0,
+          "fw": 640.0,
+          "x": 320.0,
+          "fx": 0.0,
+          "cx": 320.0,
+          "alpha": 100.0,
+          "h": 1.0,
+          "w": 1.0,
+          "y": 320.0,
+          "fy": 0.0
+        },
+        {
+          "t": 449,
+          "a": 0.0,
+          "track": "a",
+          "fh": 640.0,
+          "cy": 320.0,
+          "fw": 640.0,
+          "x": 320.0,
+          "fx": 0.0,
+          "cx": 320.0,
+          "alpha": 100.0,
+          "h": 1.0,
+          "w": 1.0,
+          "y": 320.0,
+          "fy": 0.0
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.duanqu.qupai.widget.CircleProgressBar
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_gravity="right|bottom"
+        android:id="@+id/effect_chooser_item_progress"
+        app:backgroundWidth="25dp"
+        app:backgroundHeight="25dp"
+        app:progressWidth="21dp"
+        app:progressThickness="2dp"
+        android:background="@drawable/theme_default_qupai_progress_download_bg"
+        />
+    <!--<ProgressBar-->
+        <!--android:id="@+id/effect_chooser_item_progress"-->
+        <!--style="?android:attr/progressBarStyleHorizontal"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="6dp"-->
+        <!--android:layout_gravity="center"-->
+        <!--android:layout_margin="6dp" />-->
+
+    <!--<com.duanqu.qupaicustomuidemo.widget.FanProgressBar-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--app:internalRadius="0"-->
+        <!--app:outRadius="match_parent"-->
+        <!--app:circleMaxProgress="100"-->
+        <!--app:outBackgroundColor="#FF4B3B"-->
+        <!--app:outAlpha="0.5"-->
+        <!--app:outDirection="clockwise"-->
+        <!--app:initStyle="fill"-->
+        <!--android:id="@+id/effect_chooser_item_progress"-->
+        <!--/>-->
+
+    <ImageButton
+            android:id="@+id/effect_chooser_item_download"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitXY"
+            android:src="@null"
+            android:contentDescription="@null" />
+
+    <ImageView
+        android:id="@+id/effect_chooser_item_new"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|right"
+        android:contentDescription="@null"
+        />
+
+    <ImageView android:id="@+id/effect_chooser_item_lock"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@null"
+        android:layout_gravity="bottom|right"
+        android:scaleType="center"/>
+
+</merge>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GridView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/font_list"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:cacheColorHint="@android:color/transparent"
+    android:choiceMode="singleChoice"
+    android:gravity="center"
+    android:horizontalSpacing="3dp"
+    android:listSelector="@android:color/transparent"
+    android:numColumns="2"
+    android:paddingTop="3dp"
+    android:scrollbars="none"
+    android:stretchMode="columnWidth"
+    android:verticalSpacing="3dp"/>

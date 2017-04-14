@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/CustomSDK_Full_V2.2.3.iml" filepath="$PROJECT_DIR$/CustomSDK_Full_V2.2.3.iml" />
+      <module fileurl="file://$PROJECT_DIR$/GalleryFinal/GalleryFinal.iml" filepath="$PROJECT_DIR$/GalleryFinal/GalleryFinal.iml" />
+      <module fileurl="file://$PROJECT_DIR$/NilUiSDK-release/NilUiSDK-release.iml" filepath="$PROJECT_DIR$/NilUiSDK-release/NilUiSDK-release.iml" />
+      <module fileurl="file://$PROJECT_DIR$/QupaiCustomUiDemo/QupaiCustomUiDemo.iml" filepath="$PROJECT_DIR$/QupaiCustomUiDemo/QupaiCustomUiDemo.iml" />
+    </modules>
+  </component>
+</project>

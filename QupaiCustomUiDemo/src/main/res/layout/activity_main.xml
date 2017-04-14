@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:keepScreenOn="true"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="宽"/>
+        <EditText
+            android:id="@+id/edit_output_video_width"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:hint="360"
+            android:layout_height="wrap_content"
+            android:numeric="integer"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="高"/>
+
+        <EditText
+            android:id="@+id/edit_output_video_height"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:hint="640"
+            android:layout_height="wrap_content"
+            android:numeric="integer" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_auth"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="auth"/>
+
+    <Button
+        android:id="@+id/btn_record"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="record"></Button>
+    <Button
+        android:id="@+id/btn_trim"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="trim"></Button>
+    <Button
+        android:id="@+id/btn_photo_fade"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="photoCompose"></Button>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="videoCompose"
+        android:id="@+id/btn_video_compose"/>
+    
+</LinearLayout>

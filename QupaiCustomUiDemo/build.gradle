@@ -1,0 +1,102 @@
+apply plugin: 'com.android.application'
+
+repositories {
+    jcenter()
+}
+
+android {
+    compileSdkVersion 23
+    buildToolsVersion '25.0.0'
+
+    dexOptions{
+        javaMaxHeapSize "4g"
+    }
+
+    signingConfigs {
+        debug {
+            storeFile file("$rootDir/debug.keystore")
+            storePassword "android"
+            keyAlias "androiddebugkey"
+            keyPassword "android"
+        }
+
+        release {
+            storeFile file("$rootDir/debug.keystore")
+            storePassword "android"
+            keyAlias "androiddebugkey"
+            keyPassword "android"
+        }
+
+        packagingOptions {
+            exclude 'META-INF/DEPENDENCIES'
+            exclude 'META-INF/NOTICE'
+            exclude 'META-INF/LICENSE'
+            exclude 'META-INF/LICENSE.txt'
+            exclude 'META-INF/NOTICE.txt'
+        }
+    }
+
+    defaultConfig {
+        applicationId "com.duanqu.qupaicustomuidemo"
+        minSdkVersion 15
+        targetSdkVersion 23
+        versionCode 1
+        versionName "1.0"
+        multiDexEnabled true
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_7
+    }
+
+        buildTypes {
+            release {
+                minifyEnabled false
+                jniDebuggable false
+                proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+                signingConfig signingConfigs.release
+                buildConfigField "String", "BASE_API_URL", "\"https://m-api.qupaicloud.com\""
+            }
+            debug {
+                minifyEnabled false
+                jniDebuggable true
+                proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+                signingConfig signingConfigs.debug
+                buildConfigField "String", "BASE_API_URL", "\"https://m.api.qupaicloud.com\""
+            }
+        }
+}
+
+dependencies {
+    //动图音乐mv的管理使用
+    compile 'com.astuetz:pagerslidingtabstrip:1.0.1'
+
+    //GalleryFinal是第三方开源库，直接暴露源码.不建议开发者直接使用这个库,建议自己写照片 和视频的选择，目前因为要使用GalleryFinal，这个库依赖了
+    // 现在NilUiSDK-release.aar的内容,所以依赖关系是：
+    //QupaiCustomUiDemo ----> GalleryFinal --->NilUiSDK-release.aar，正常的情况建议直接依赖NilUiSDK-release.aar
+    compile project(':GalleryFinal')
+
+    //官方库
+    compile 'com.android.support:support-v4:23.4.0'
+    compile 'com.android.support:appcompat-v7:23.4.0'
+    compile 'com.android.support:support-v13:23.4.0'
+
+    //SDK和Demo需要的第三方库
+    compile 'com.android.support:recyclerview-v7:23.4.0'
+
+    compile 'com.fasterxml.jackson.core:jackson-databind:2.6.4'
+    compile 'com.google.guava:guava:18.0'
+    compile 'com.google.code.findbugs:jsr305:3.0.0'
+    compile 'com.j256.ormlite:ormlite-android:4.48'
+    compile 'com.android.support:support-annotations:23.0.2'
+    compile 'com.squareup.okhttp3:okhttp:3.2.0'
+    compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.4'
+    compile 'com.fasterxml.jackson.core:jackson-databind:2.6.4'
+    compile 'javax.inject:javax.inject:1'
+    compile 'javax.annotation:javax.annotation-api:1.2'
+    compile 'net.jcip:jcip-annotations:1.0'
+    debugCompile 'com.amitshekhar.android:debug-db:1.0.0'
+    //分包
+    compile 'com.android.support:multidex:1.0.1'
+}

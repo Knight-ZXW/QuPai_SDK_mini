@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>type</key>
+	<string>music</string>
+	<key>name</key>
+	<string>Fly love</string>
+	<key>withoutNameImageName</key>
+	<string>icon_without_name.png</string>
+	<key>musicName</key>
+	<string>audio.mp3</string>
+</dict>
+</plist>
