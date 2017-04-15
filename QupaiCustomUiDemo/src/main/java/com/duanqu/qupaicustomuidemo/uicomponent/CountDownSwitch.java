@@ -8,23 +8,29 @@ public class CountDownSwitch implements View.OnClickListener{
         void onTimerStart();
         void onTimerStop();
     }
-    private OnTimerListener mOnTimerListener;
+    private CountDownTips mCountDownTips;
     private View view;
 
-    public CountDownSwitch(View view, OnTimerListener timer) {
+    public CountDownSwitch(View view, CountDownTips countDownTips) {
         this.view= view;
         view.setOnClickListener(this);
-        mOnTimerListener = timer;
+        mCountDownTips = countDownTips;
     }
 
     @Override
     public void onClick(View view) {
         if(view.isActivated()) {
             view.setActivated(false);
-            mOnTimerListener.onTimerStop();
+//            mCountDownTips.onTimerStop();
         } else {
             view.setActivated(true);
-            mOnTimerListener.onTimerStart();
+//            mCountDownTips.onTimerStart();
+        }
+    }
+
+    public void  startCountDown(){
+        if (view.isActivated()){
+            mCountDownTips.onTimerStart();
         }
     }
 

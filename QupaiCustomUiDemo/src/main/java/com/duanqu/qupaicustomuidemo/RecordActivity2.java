@@ -1,6 +1,5 @@
 package com.duanqu.qupaicustomuidemo;
 
-import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -10,7 +9,6 @@ import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
@@ -41,7 +39,7 @@ import java.io.Serializable;
 import java.util.List;
 
 
-public class RecordActivity2 extends AppCompatActivity implements EasyPermissions.PermissionCallbacks{
+public class RecordActivity2 extends AppCompatActivity implements EasyPermissions.PermissionCallbacks {
 
     private String projectpath;
     private RecorderInterface.ReturnCode ret;//每个操作的返回状态
@@ -65,9 +63,9 @@ public class RecordActivity2 extends AppCompatActivity implements EasyPermission
     private ImageView mIvRecord;
     private ImageView mIvNextStep;
     private ImageView swtichLight;
-    private ImageView mTvGallery;
     private ImageView mCameraSwitch;
     private ImageView mIvCountDown;
+    private ImageView mChooseBgMusic;
 
     RotationObserver rotationObserver;
     private boolean isSupportSensor = false;
@@ -132,7 +130,7 @@ public class RecordActivity2 extends AppCompatActivity implements EasyPermission
         initView();
     }
 
-    private void initArgs(){
+    private void initArgs() {
 
         projectpath = getExternalFilesDir(null) + "/project";
         minTimeLength = (long) _Request.getVideoSessionClient(this).getProjectOptions().durationMin;
@@ -155,7 +153,7 @@ public class RecordActivity2 extends AppCompatActivity implements EasyPermission
 
     }
 
-    private void initView(){
+    private void initView() {
         //取消录制
         mBackspace = (ImageView) findViewById(R.id.ImageView_backspace);
         mBackspace.setOnClickListener(mViewMonitor);
@@ -167,32 +165,31 @@ public class RecordActivity2 extends AppCompatActivity implements EasyPermission
 
         //录制按钮
         mIvRecord = (ImageView) findViewById(R.id.imageView_capture);
-        mIvRecord.setOnTouchListener(mViewMonitor);
+        mIvRecord.setOnClickListener(mViewMonitor);
 
         //回删按钮
         mIvDeleteClip = (ImageView) findViewById(R.id.ImageView_clipCanceller);
         mIvDeleteClip.setOnClickListener(mViewMonitor);
-
-        //导入
-        mTvGallery = (ImageView)findViewById(R.id.btn_gallery);
-        mTvGallery.setOnClickListener(mViewMonitor);
-
 
         //闪光灯
         swtichLight = (ImageView) findViewById(R.id.switch_light);
         swtichLight.setOnClickListener(mViewMonitor);
 
         //摄像头翻转
-        mCameraSwitch = (ImageView)findViewById(R.id.ImageButton_cameraSwitch);
+        mCameraSwitch = (ImageView) findViewById(R.id.ImageButton_cameraSwitch);
         mCameraSwitch.setOnClickListener(mViewMonitor);
 
 
         //倒计时拍摄
         mIvCountDown = (ImageView) findViewById(R.id.ImageButton_countdownSwitch);
         CountDownTips countdown_tips = new CountDownTips((TextView) findViewById(R.id.TextView_countdownTips),
-                findViewById(R.id.LinearLayout_countdownTips), mCameraSwitch , mIvDeleteClip, this,onCountDownRecordListener);
+                findViewById(R.id.LinearLayout_countdownTips), mCameraSwitch, mIvDeleteClip, this, onCountDownRecordListener);
 
-        countDownSwitch = new CountDownSwitch(mIvCountDown, countdown_tips);
+        countDownSwitch = new CountDownSwitch(mIvCountDown, countdown_tips);//给IvCountDown 设置点击事件
+
+        // 选择背景音乐
+        mChooseBgMusic = (ImageView) findViewById(R.id.imageView_record_choose_music);
+        mChooseBgMusic.setOnClickListener(mViewMonitor);
 
         //时间轴
         timeLayout = (TimelineTimeLayout) findViewById(R.id.time_layout);
@@ -206,7 +203,7 @@ public class RecordActivity2 extends AppCompatActivity implements EasyPermission
         recordViewHeight = (int) (
                 (double) _Request.getVideoSessionClient(this).getProjectOptions().videoHeight
                         / (double) _Request.getVideoSessionClient(this).getProjectOptions().videoWidth
-                * recordViewWidth);
+                        * recordViewWidth);
 
         int topHeight = screenHeight / 9;
         FrameLayout recordLayout = (FrameLayout) findViewById(R.id.record_view_layout);
@@ -234,9 +231,9 @@ public class RecordActivity2 extends AppCompatActivity implements EasyPermission
 //        recordLayout.setPadding(0, top, 0, bottom);
 
         //默认如果是前置摄像头隐藏闪光灯
-        if(mRecordView.isFrontCamera()){
+        if (mRecordView.isFrontCamera()) {
             swtichLight.setVisibility(View.GONE);
-        }else {
+        } else {
             swtichLight.setVisibility(View.VISIBLE);
         }
     }
@@ -260,11 +257,11 @@ public class RecordActivity2 extends AppCompatActivity implements EasyPermission
         super.onPause();
         if (isRsume) {
             mRecordView.onPause();
-            if(mIvCountDown.isActivated()){
+            if (mIvCountDown.isActivated()) {
                 mIvCountDown.callOnClick();
 
             }
-            if(!mCameraSwitch.isEnabled()){
+            if (!mCameraSwitch.isEnabled()) {
                 mCameraSwitch.setEnabled(true);
             }
 
@@ -280,68 +277,68 @@ public class RecordActivity2 extends AppCompatActivity implements EasyPermission
     }
 
 
-
-
     private boolean isPausing = false;
     private long startTime = 0l; //上次录制开始的时刻
 
-    class ViewMonitor implements View.OnClickListener, View.OnTouchListener {
+    class ViewMonitor implements View.OnClickListener {
 
 
-        @Override
-        public boolean onTouch(View v, MotionEvent motionEvent) {
-                int action = motionEvent.getActionMasked();
-                Log.e("qupai", "action is " + action + "recordState:" + recordState);
-                if (isPausing||!isPartCompleted) return false;
-                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
-                    mIvRecord.setImageResource(R.drawable.btn_qupai_camera_capture_pressed);
-                    startTime = System.currentTimeMillis();
-                    if (recordState == State.STOP){
-                        startRecord();
-//                        mCameraSwitch.setActivated(false);
-                        mIvCountDown.setActivated(false);
-                        swtichLight.setActivated(false);
-                        mCameraSwitch.setEnabled(false);
-                    }
-                    else if (recordState == State.PAUSE){
-                        resumeRecord();
-//                        mCameraSwitch.setActivated(true);
-                        swtichLight.setActivated(true);
-                        mCameraSwitch.setEnabled(true);
-                    }else if(recordState == State.RESUME){
-                        mIvCountDown.setActivated(false);
-                        mCameraSwitch.setEnabled(false);
-                        pauseRecord();
-                    }
-
-                } else if (motionEvent.getAction() == MotionEvent.ACTION_UP && recordState != State.STOP && recordState != State.PAUSE) {
-                    isPausing = true;
-                    mCameraSwitch.setEnabled(true);
-                    mIvRecord.setImageResource(R.drawable.btn_qupai_camera_capture_normal);
-                    if (System.currentTimeMillis() - startTime > 500)
-                        pauseRecord();
-                    else {
-                        Message msg = new Message();
-                        msg.what = 0x1111;
-                        handler.sendMessageDelayed(msg, 500);
-                    }
-                }
-            return true;
-        }
+//        @Override
+//        public boolean onTouch(View v, MotionEvent motionEvent) {//拍照按钮的 on Touch
+//            int action = motionEvent.getActionMasked();
+//            Log.e("qupai", "action is " + action + "recordState:" + recordState);
+//            if (isPausing || !isPartCompleted) return false;
+//            if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
+//                //如果进度条是0，则是初始化的情况
+//                mChooseBgMusic.setVisibility(View.GONE);
+//                mIvRecord.setImageResource(R.drawable.btn_qupai_camera_capture_pressed);
+//                startTime = System.currentTimeMillis();
+//                if (recordState == State.STOP) {
+//                    startRecord();
+////                        mCameraSwitch.setActivated(false);
+//                    mIvCountDown.setActivated(false);
+//                    swtichLight.setActivated(false);
+//                    mCameraSwitch.setEnabled(false);
+//                } else if (recordState == State.PAUSE) {
+//                    resumeRecord();
+////                        mCameraSwitch.setActivated(true);
+//                    swtichLight.setActivated(true);
+//                    mCameraSwitch.setEnabled(true);
+//                } else if (recordState == State.RESUME) {
+//                    mIvCountDown.setActivated(false);
+//                    mCameraSwitch.setEnabled(false);
+//                    pauseRecord();
+//                }
+//
+//            } else if (motionEvent.getAction() == MotionEvent.ACTION_UP && recordState != State.STOP && recordState != State.PAUSE) {
+//                isPausing = true;
+//                mCameraSwitch.setEnabled(true);
+//                mIvRecord.setImageResource(R.drawable.btn_qupai_camera_capture_normal);
+//                if (System.currentTimeMillis() - startTime > 500)
+//                    pauseRecord();
+//                else {
+//                    Message msg = new Message();
+//                    msg.what = 0x1111;
+//                    handler.sendMessageDelayed(msg, 500);
+//                }
+//            }
+//            return true;
+//        }
 
 
         @Override
         public void onClick(View v) {
             switch (v.getId()) {
+
+                case R.id.imageView_capture:
+                    detailRecord();
+                    break;
                 case R.id.ImageView_clipCanceller:
                     //回删
                     detailDelete();
                     break;
                 case R.id.imageView_nextBtn:
                     stopRecord();
-                    break;
-                case R.id.btn_gallery:
-                    readExternalStorage();
                     break;
                 case R.id.ImageView_backspace:
                     onBackPressed();
@@ -352,13 +349,49 @@ public class RecordActivity2 extends AppCompatActivity implements EasyPermission
                 case R.id.ImageButton_cameraSwitch:
                     detailChangeCamera();
                     break;
+                case R.id.imageView_record_choose_music:
+                    //todo jump to choose bg Music
+                    break;
             }
         }
     }
 
+    /**
+     * 拍摄按钮
+     */
+    private void detailRecord() {
+        if (isPausing || !isPartCompleted) return;
+        //如果进度条是0，则是初始化的情况
+
+        mIvRecord.setImageResource(R.drawable.btn_qupai_camera_capture_pressed);
+        if (recordState == State.STOP) {//如果是停止状态则开始录制
+            startTime = System.currentTimeMillis();
+            mChooseBgMusic.setVisibility(View.GONE);
+            startRecord();
+//                        mCameraSwitch.setActivated(false);
+            mIvCountDown.setActivated(false);
+            swtichLight.setActivated(false);
+            mCameraSwitch.setEnabled(false);
+        } else if (recordState == State.PAUSE) {//如果是暂停状态 则继续录制
+            resumeRecord();
+//                        mCameraSwitch.setActivated(true);
+            swtichLight.setActivated(true);
+            mCameraSwitch.setEnabled(true);
+        } else if (recordState == State.RESUME) {//如果是录制状态，则
+            mIvCountDown.setActivated(false);
+            mCameraSwitch.setEnabled(false);
+            pauseRecord();
+        } else {//如果是 start 则暂停
+            isPausing = true;
+            mCameraSwitch.setEnabled(true);
+            mIvRecord.setImageResource(R.drawable.btn_qupai_camera_capture_normal);
+            pauseRecord();
+        }
+    }
+
     private boolean isDeleteActive = false;
-    private void detailDelete()
-    {
+
+    private void detailDelete() {
         if (isDeleteActive)//判断状态，确认删除
         {
             ret = mRecordView.deletePart(mRecordView.getPartCount());
@@ -368,8 +401,10 @@ public class RecordActivity2 extends AppCompatActivity implements EasyPermission
                 isDeleteActive = false;
                 videoDuration = mRecordView.getDuration();
 
-                if(mRecordView.getPartCount() == 0){
-                    mTvGallery.setVisibility(View.VISIBLE);
+                if (mRecordView.getPartCount() == 0) {
+                    // 没有part ，可以再显示背景音乐了
+                    mChooseBgMusic.setVisibility(View.VISIBLE);
+//                    mTvGallery.setVisibility(View.VISIBLE);
                 }
             }
         } else//active状态
@@ -383,26 +418,23 @@ public class RecordActivity2 extends AppCompatActivity implements EasyPermission
 
     long time;
     long videoDuration = 0;
-    RecorderCallback recorderCallback =new  RecorderCallback(){
+    RecorderCallback recorderCallback = new RecorderCallback() {
 
         @Override
         public void onProgress(long timestamp) {
-            Log.i("qupai", "onProgress"+timestamp);
+            Log.i("qupai", "onProgress" + timestamp);
             time = timestamp;
             timeLayout.update(time);//更新timeLayout
-            if(time >= maxTimeLength){
+            if (time >= maxTimeLength) {
                 stopRecord();
-            }
-            else if(time >= minTimeLength) {
+            } else if (time >= minTimeLength) {//时长超过了最短的限制，则会显示下一步
                 mIvNextStep.setVisibility(View.VISIBLE);
-            }
-            else if(time > 0)
+            } else if (time > 0)// 在minTimeLength之下
             {
                 mIvNextStep.setVisibility(View.GONE);
-            }
-            else if(time == 0)
-            {
-                mIvDeleteClip.setVisibility(View.GONE);
+            } else if (time == 0) {
+                //如果没有可以删除的，则变灰
+                mIvDeleteClip.setActivated(false);
             }
         }
 
@@ -444,28 +476,25 @@ public class RecordActivity2 extends AppCompatActivity implements EasyPermission
         }
     };
 
-    private void detailChangeCamera()
-    {
-        if(recordState == State.RESUME) //首先暂停视频，recordview内部也会自动暂停录制
+    private void detailChangeCamera() {
+        if (recordState == State.RESUME) //首先暂停视频，recordview内部也会自动暂停录制
             pauseRecord();
-        if(lightSwitch ==  RecorderInterface.QupaiSwitch.OPEN)
-        {
+        if (lightSwitch == RecorderInterface.QupaiSwitch.OPEN) {
             detailSwitchLight();
         }
 
         ret = mRecordView.changeCamera();
         if (ret.ordinal() <= RecorderInterface.ReturnCode.WARNING_UNKNOWN.ordinal())//判断是否成功
         {
-            if(mRecordView.isFrontCamera()){
+            if (mRecordView.isFrontCamera()) {
                 swtichLight.setVisibility(View.GONE);
-            }else {
+            } else {
                 swtichLight.setVisibility(View.VISIBLE);
             }
         }
     }
 
-    private RecorderInterface.ReturnCode detailSwitchLight()
-    {
+    private RecorderInterface.ReturnCode detailSwitchLight() {
         //确认是打开还是关闭
         RecorderInterface.QupaiSwitch ord;
         if (lightSwitch == RecorderInterface.QupaiSwitch.CLOSE)
@@ -486,7 +515,6 @@ public class RecordActivity2 extends AppCompatActivity implements EasyPermission
 
     //开始录制
     private RecorderInterface.ReturnCode startRecord() {
-        mTvGallery.setVisibility(View.GONE);
         mRecordView.setRotation(recordRotate);
 
         ret = mRecordView.startRecord();
@@ -499,7 +527,9 @@ public class RecordActivity2 extends AppCompatActivity implements EasyPermission
         showToast(ret.toString());
         return ret;
     }
+
     private boolean isPartCompleted = true;
+
     //暂停录制
     private RecorderInterface.ReturnCode pauseRecord() {
         ret = mRecordView.pauseRecord();
@@ -510,9 +540,9 @@ public class RecordActivity2 extends AppCompatActivity implements EasyPermission
         isPausing = false;
         return ret;
     }
+
     //恢复录制
     private RecorderInterface.ReturnCode resumeRecord() {
-        mTvGallery.setVisibility(View.GONE);
         ret = mRecordView.resumeRecord();
         if (ret.ordinal() <= RecorderInterface.ReturnCode.WARNING_UNKNOWN.ordinal()) {
             mIvDeleteClip.setEnabled(false);
@@ -526,12 +556,13 @@ public class RecordActivity2 extends AppCompatActivity implements EasyPermission
 
         return ret;
     }
+
     private long stopTime = 0l;
+
     //调用生成视频，异步生成，会在视频生成后有OnCompletion 回调
     private RecorderInterface.ReturnCode stopRecord() {
 
         handler.removeMessages(0x1111);
-        mTvGallery.setVisibility(View.VISIBLE);
         mIvDeleteClip.setActivated(false);
         isDeleteActive = false;
         mIvDeleteClip.setVisibility(View.GONE);
@@ -549,6 +580,7 @@ public class RecordActivity2 extends AppCompatActivity implements EasyPermission
     }
 
     Toast toast;
+
     public void showToast(String text) {
 
         if (toast == null) {
@@ -589,16 +621,14 @@ public class RecordActivity2 extends AppCompatActivity implements EasyPermission
             Log.i("dang", "rotate1 change " + rotation);
             if (isSupportSensor) {
                 recordRotate = rotation;
-            }
-            else
-            {
+            } else {
                 recordRotate = defaultRotate;
 
             }
         }
     }
 
-    CountDownTips.OnCountDownRecordListener onCountDownRecordListener =new CountDownTips.OnCountDownRecordListener(){
+    CountDownTips.OnCountDownRecordListener onCountDownRecordListener = new CountDownTips.OnCountDownRecordListener() {
 
         @Override
         public void onRecordStart() {
@@ -617,24 +647,24 @@ public class RecordActivity2 extends AppCompatActivity implements EasyPermission
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        EasyPermissions.onRequestPermissionsResult(requestCode,permissions,grantResults,this);
+        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
     }
 
-    private final int RC_SETTINGS_SCREEN  = 1002;
+    private final int RC_SETTINGS_SCREEN = 1002;
     private static final int RC_EXTERNAL_STORAGE = 124;
 
-    public void readExternalStorage(){
-        String[] perms = {Manifest.permission.READ_EXTERNAL_STORAGE };
-        if (EasyPermissions.hasPermissions(this, perms)) {
-            // Have permissions, do the thing!
-            new ImportActivity.Request(new VideoSessionClientFactoryImpl(), null)
-                    .startForResult(RecordActivity2.this, RenderRequest.RENDER_MODE_EXPORT_VIDEO);
-        } else {
-            // Ask for both permissions
-            EasyPermissions.requestPermissions(this, "readExternalStorage",
-                    RC_EXTERNAL_STORAGE, perms);
-        }
-    }
+//    public void readExternalStorage(){
+//        String[] perms = {Manifest.permission.READ_EXTERNAL_STORAGE };
+//        if (EasyPermissions.hasPermissions(this, perms)) {
+//            // Have permissions, do the thing!
+//            new ImportActivity.Request(new VideoSessionClientFactoryImpl(), null)
+//                    .startForResult(RecordActivity2.this, RenderRequest.RENDER_MODE_EXPORT_VIDEO);
+//        } else {
+//            // Ask for both permissions
+//            EasyPermissions.requestPermissions(this, "readExternalStorage",
+//                    RC_EXTERNAL_STORAGE, perms);
+//        }
+//    }
 
     @Override
     public void onPermissionsDenied(int requestCode, List<String> perms) {

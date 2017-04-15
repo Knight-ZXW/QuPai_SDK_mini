@@ -9,7 +9,6 @@ import android.os.Message;
 import android.view.View;
 import android.widget.TextView;
 
-import com.duanqu.qupai.minisdk.view.RecordView;
 import com.duanqu.qupaicustomuidemo.R;
 
 public class CountDownTips implements CountDownSwitch.OnTimerListener {
@@ -20,8 +19,8 @@ public class CountDownTips implements CountDownSwitch.OnTimerListener {
     }
 
     private final Animator _Animator;
-    private final TextView _CountDownText;
-    private final View _CountDownTip;
+    private final TextView _CountDownText;//5 4  3 2 1
+    private final View _CountDownTip; //提示的UI
     private final View _SwitchCamera;
     private final View _ViewDeleteClip;
 
@@ -51,6 +50,9 @@ public class CountDownTips implements CountDownSwitch.OnTimerListener {
         mHandler = new Handler(CALLBACK);
     }
 
+    /**
+     * 开始倒计时
+     */
     @Override
     public void onTimerStart() {
         _CountDownTip.setVisibility(View.VISIBLE);
@@ -86,7 +88,7 @@ public class CountDownTips implements CountDownSwitch.OnTimerListener {
 
     public void startCountDown() {
         _CountDownTip.setVisibility(View.GONE);
-        _CountDownTip.findViewById(R.id.photo_tip_self_timer_countdown_cancel).setVisibility(View.GONE);
+        _CountDownTip.findViewById(R.id.photo_tip_self_timer_countdown_cancel).setVisibility(View.VISIBLE);
 
         _Player = MediaPlayer.create(_CountDownText.getContext(), R.raw.qupai_stop_timer_countdown);
         _Player.start();
