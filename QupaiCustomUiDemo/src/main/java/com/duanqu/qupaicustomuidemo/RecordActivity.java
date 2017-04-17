@@ -541,7 +541,6 @@ public class RecordActivity extends AppCompatActivity implements EasyPermissions
         } else
             mIvRecord.setImageResource(R.drawable.btn_qupai_camera_capture_normal);
 
-        showToast(ret.toString());
         mChooseBgMusic.setVisibility(View.GONE);
         return ret;
     }
@@ -553,8 +552,7 @@ public class RecordActivity extends AppCompatActivity implements EasyPermissions
         ret = mRecordView.pauseRecord();
         if (ret.ordinal() <= RecorderInterface.ReturnCode.WARNING_UNKNOWN.ordinal()) {
             isPartCompleted = false;
-        } else
-            showToast(ret.toString());
+        }
         isPausing = false;
         return ret;
     }
@@ -572,7 +570,6 @@ public class RecordActivity extends AppCompatActivity implements EasyPermissions
             recordState = State.RESUME;
         } else
             mIvRecord.setImageResource(R.drawable.btn_qupai_camera_capture_normal);
-        showToast(ret.toString());
         return ret;
     }
 
@@ -590,24 +587,9 @@ public class RecordActivity extends AppCompatActivity implements EasyPermissions
 
         if (ret.ordinal() <= RecorderInterface.ReturnCode.WARNING_UNKNOWN.ordinal()) {
             recordRotate = defaultRotate;
-        } else {
-            showToast(ret.toString());
         }
         mIvRecord.setImageResource(R.drawable.btn_qupai_camera_capture_normal);
         return ret;
-    }
-
-    Toast toast;
-
-    public void showToast(String text) {
-
-        if (toast == null) {
-            toast = Toast.makeText(RecordActivity.this, text, Toast.LENGTH_SHORT);
-        } else {
-            toast.setText(text);
-            toast.setDuration(Toast.LENGTH_SHORT);
-        }
-        toast.show();
     }
 
 
@@ -626,7 +608,6 @@ public class RecordActivity extends AppCompatActivity implements EasyPermissions
             if (isSupportSensor) {
                 recordRotate = rotation;
 
-                float rotateRotation =- mCameraSwitch.getRotation();
                 mCameraSwitch.setRotation(-rotation);
                 mIvCountDown.setRotation(-rotation);
                 mSwitchLight.setRotation(-rotation);
