@@ -41,6 +41,11 @@
             android:name=".editor.EditorActivity"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+
+        <activity
+            android:name=".editor.EditorActivity2"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
         <activity
             android:name=".trim.drafts.ImportActivity"
             android:theme="@style/Theme.Qupai.Video.Default" />

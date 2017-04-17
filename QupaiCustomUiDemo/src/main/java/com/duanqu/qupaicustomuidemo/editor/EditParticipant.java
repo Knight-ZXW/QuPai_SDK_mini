@@ -3,7 +3,7 @@ package com.duanqu.qupaicustomuidemo.editor;
 import android.view.View;
 import com.duanqu.qupai.asset.AssetID;
 
-abstract class EditParticipant {
+public abstract class EditParticipant {
 
     public void onStart() { }
 

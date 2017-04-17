@@ -125,10 +125,12 @@
     <string name="qupai_video_recorder_tip_first_delete">点击这里可删除\n不满意的片段</string>
     <string name="qupai_video_recorder_tip_confirm_delete">再次点击将删除\n最后一段视频</string>
     <string name="qupai_effect_animation_overlay">动图</string>
+    <string name="qupai_video_cover">封面</string>
     <string name="qupai_effect_filter">滤镜</string>
+    <string name="qupai_effect_paster">贴纸</string>
     <string name="qupai_effect_mv">iMV</string>
-    <string name="qupai_effect_caption">字幕</string>
-    <string name="qupai_effect_audio_mix">音乐</string>
+    <string name="qupai_effect_caption">文字</string>
+    <string name="qupai_effect_audio_mix">配乐</string>
     <string name="qupai_effect_text_stroke">描边</string>
     <string name="qupai_effect_text_color">纯色</string>
     <string name="qupai_back">返回</string>

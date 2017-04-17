@@ -100,7 +100,6 @@
     <style name="Qupai.Widget.RadioButton.EffectChooser" parent="@android:style/Widget.DeviceDefault.TextView">
         <item name="android:width">80dp</item>
         <item name="android:background">@android:color/white</item>
-        <item name="android:gravity">center</item>
         <item name="android:textColor">@color/theme_default_qupai_text_edit_effect</item>
         <item name="android:textSize">16sp</item>
     </style>
@@ -149,4 +148,16 @@
         <item name="android:cacheColorHint">@android:color/transparent</item>
         <item name="android:backgroundDimEnabled">true</item>
     </style>
+
+    <style name="editorRecordVideoTabTxt">
+        <item name="android:textSize">9sp</item>
+        <item name="android:textColor">@color/theme_default_qupai_text_edit_effect</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">2.5dp</item>
+    </style>
+
 </resources>

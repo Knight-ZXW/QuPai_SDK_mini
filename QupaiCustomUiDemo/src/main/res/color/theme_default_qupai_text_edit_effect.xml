@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-  <item android:state_activated="true" android:color="@color/defalut_primary_color"/>
-  <item android:color="@android:color/black"/>
+  <item android:state_activated="true" android:color="#000"/>
+  <item android:state_activated="false" android:color="#999"/>
+  <item android:color="#999"/>
 </selector>

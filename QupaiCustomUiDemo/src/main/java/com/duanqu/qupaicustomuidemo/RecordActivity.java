@@ -22,7 +22,7 @@ import com.duanqu.qupai.minisdk.view.DisplayRotationObserver;
 import com.duanqu.qupai.minisdk.view.RecordView;
 import com.duanqu.qupai.permission.AppSettingsDialog;
 import com.duanqu.qupai.permission.EasyPermissions;
-import com.duanqu.qupaicustomuidemo.editor.EditorActivity;
+import com.duanqu.qupaicustomuidemo.editor.EditorActivity2;
 import com.duanqu.qupaicustomuidemo.engine.session.RenderRequest;
 import com.duanqu.qupaicustomuidemo.engine.session.VideoSessionClientFactoryImpl;
 import com.duanqu.qupaicustomuidemo.trim.drafts.ImportActivity;
@@ -464,7 +464,7 @@ public class RecordActivity extends AppCompatActivity implements EasyPermissions
             }
             mIvDeleteClip.setVisibility(View.GONE);
 
-            new EditorActivity.Request(new VideoSessionClientFactoryImpl(), null)
+            new EditorActivity2.Request(new VideoSessionClientFactoryImpl(), null)
                     .setProjectUri(Uri.parse(projectpath + "/project.json"))
                     .startForResult(RecordActivity.this, RenderRequest.RENDER_MODE_EXPORT_VIDEO);
         }
