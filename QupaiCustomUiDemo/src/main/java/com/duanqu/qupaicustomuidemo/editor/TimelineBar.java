@@ -135,7 +135,7 @@ class TimelineBar implements OnRenderChangeListener {
 
 		timeline.scrollBy(Math.round(daltDx), 0);
 
-		showTimeIndicator(progress);
+//		showTimeIndicator(progress);
 	}
 
 	private void showTimeIndicator(long progress){
@@ -272,7 +272,8 @@ class TimelineBar implements OnRenderChangeListener {
 		public ThumbnailerItem onCreateViewHolder(ViewGroup parent, int viewType) {
 			ImageView image = new ImageView(timeline.getContext());
 			image.setScaleType(ScaleType.CENTER_CROP);
-			image.setBackgroundResource(android.R.color.white);
+//			image.setBackgroundResource(android.R.color.white);
+			image.setBackgroundResource(R.color.green_light);
 			ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(
 					ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 			int pw = getWidth();

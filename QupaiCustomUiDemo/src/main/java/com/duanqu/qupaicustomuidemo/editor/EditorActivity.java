@@ -10,15 +10,22 @@ import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+
 import com.duanqu.qupai.android.widget.AspectRatioLayout;
 import com.duanqu.qupai.asset.AssetID;
 import com.duanqu.qupai.asset.AssetInfo;
 import com.duanqu.qupai.asset.AssetRepository;
 import com.duanqu.qupai.asset.AssetRepositoryClient;
-import com.duanqu.qupai.effect.*;
+import com.duanqu.qupai.effect.EditorService;
+import com.duanqu.qupai.effect.EditorServiceFactory;
+import com.duanqu.qupai.effect.EditorUIConfig;
+import com.duanqu.qupai.effect.EffectService;
+import com.duanqu.qupai.effect.OnRenderChangeListener;
+import com.duanqu.qupai.effect.Player;
+import com.duanqu.qupai.effect.RenderEditService;
+import com.duanqu.qupai.effect.VideoTimelineEditService;
 import com.duanqu.qupai.engine.session.PageRequest;
 import com.duanqu.qupai.engine.session.SessionClientFactory;
 import com.duanqu.qupai.engine.session.SessionPageRequest;
@@ -33,9 +40,10 @@ import com.duanqu.qupaicustomuidemo.R;
 import com.duanqu.qupaicustomuidemo.engine.session.RenderRequest;
 import com.duanqu.qupaicustomuidemo.render.RenderProgressActivity;
 
-import javax.annotation.Nonnull;
 import java.io.Serializable;
 import java.util.ArrayList;
+
+import javax.annotation.Nonnull;
 
 public class EditorActivity extends Activity implements View.OnClickListener, OnRenderChangeListener {
 
@@ -120,7 +128,6 @@ public class EditorActivity extends Activity implements View.OnClickListener, On
                 .setAssetRepository(dataProvider)
                 .setFontResolver(dataProvider.getFontResolver())
                 .setOverlayLayout(overlayContainer)
-                .setTimelineLayout(timeContainer)
                 .setDurationOneshot(8000)
                 .setShowTextLabel(false);
 

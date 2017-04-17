@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.duanqu.qupai.engine.session.PageRequest;
 import com.duanqu.qupai.engine.session.SessionClientFactory;

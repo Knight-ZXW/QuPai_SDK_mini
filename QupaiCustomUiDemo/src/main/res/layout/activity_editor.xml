@@ -51,31 +51,6 @@
         android:layout_height="1dp"
         android:background="@color/drafts_action_line" />
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:id="@id/dynamic_timeline_layout"
-        android:background="@color/qupai_black_opacity_70pct">
-
-        <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/timeline_nav_layout">
-            <android.support.v7.widget.RecyclerView
-                    android:id="@+id/timeline_nav"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
-
-            <View
-                    android:layout_width="4dp"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:id="@+id/indicator"
-                    android:background="@android:color/holo_red_light"/>
-
-        </FrameLayout>
-
-    </FrameLayout>
 
 
     <com.duanqu.qupai.android.widget.AspectRatioLayout
@@ -126,6 +101,31 @@
                     android:layout_gravity="bottom" />
         </LinearLayout>
     </com.duanqu.qupai.android.widget.AspectRatioLayout>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:id="@id/dynamic_timeline_layout"
+        android:background="@color/qupai_black_opacity_70pct">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/timeline_nav_layout">
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/timeline_nav"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+            <View
+                android:layout_width="4dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:id="@+id/indicator"
+                android:background="@android:color/holo_red_light"/>
+
+        </FrameLayout>
+
+    </FrameLayout>
 
     <LinearLayout
         android:id="@+id/tab_group_effect_chooser"
