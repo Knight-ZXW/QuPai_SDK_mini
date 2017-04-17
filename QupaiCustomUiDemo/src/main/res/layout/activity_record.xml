@@ -71,7 +71,6 @@
         </LinearLayout>
 
         <com.duanqu.qupai.android.widget.AspectRatioLayout
-            android:id="@+id/preview_frame"
             android:layout_width="match_parent"
             android:background="@android:color/transparent"
             android:layout_height="0dp">

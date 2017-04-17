@@ -172,6 +172,7 @@ public class RecordActivity extends AppCompatActivity implements EasyPermissions
         //回删按钮
         mIvDeleteClip = (ImageView) findViewById(R.id.ImageView_clipCanceller);
         mIvDeleteClip.setOnClickListener(mViewMonitor);
+        mIvDeleteClip.setEnabled(false);
 
         //闪光灯
         swtichLight = (ImageView) findViewById(R.id.switch_light);
@@ -184,8 +185,14 @@ public class RecordActivity extends AppCompatActivity implements EasyPermissions
 
         //倒计时拍摄
         mIvCountDown = (ImageView) findViewById(R.id.ImageButton_countdownSwitch);
-        CountDownTips countdown_tips = new CountDownTips((TextView) findViewById(R.id.TextView_countdownTips),
-                findViewById(R.id.LinearLayout_countdownTips), mCameraSwitch, mIvDeleteClip, this, onCountDownRecordListener);
+        CountDownTips countdown_tips = new CountDownTips(
+                mIvRecord,
+                (TextView) findViewById(R.id.TextView_countdownTips),
+                findViewById(R.id.LinearLayout_countdownTips),
+                mCameraSwitch,
+                mIvDeleteClip,
+                this,
+                onCountDownRecordListener);
 
         countDownSwitch = new CountDownSwitch(mIvCountDown, countdown_tips);//给IvCountDown 设置点击事件
 
@@ -279,8 +286,6 @@ public class RecordActivity extends AppCompatActivity implements EasyPermissions
     }
 
 
-
-
     class ViewMonitor implements View.OnClickListener {
 //        @Override
 //        public boolean onTouch(View v, MotionEvent motionEvent) {//拍照按钮的 on Touch
@@ -364,15 +369,22 @@ public class RecordActivity extends AppCompatActivity implements EasyPermissions
 
 //        mIvRecord.setImageResource(R.drawable.btn_qupai_camera_capture_pressed);
         if (recordState == State.STOP) {//如果是停止状态则开始录制
+            if (mIvCountDown.isActivated()){
+                countDownSwitch.startCountDown();
+                return;
+            }
             startTime = System.currentTimeMillis();
             mChooseBgMusic.setVisibility(View.GONE);
             startRecord();
-//                        mCameraSwitch.setActivated(false);
             mIvCountDown.setActivated(false);
             swtichLight.setActivated(false);
             mCameraSwitch.setEnabled(false);
             mIvRecord.setActivated(true);
         } else if (recordState == State.PAUSE) {//如果是暂停状态 则继续录制
+            if (mIvCountDown.isActivated()){
+                countDownSwitch.startCountDown();
+                return;
+            }
             resumeRecord();
 //                        mCameraSwitch.setActivated(true);
             swtichLight.setActivated(true);
@@ -431,6 +443,7 @@ public class RecordActivity extends AppCompatActivity implements EasyPermissions
                 finishRecord();
             } else if (recorderProgressTime >= minTimeLength) {//时长超过了最短的限制，则会显示下一步
                 mIvNextStep.setVisibility(View.VISIBLE);
+                mIvNextStep.setEnabled(true);
             } else if (recorderProgressTime > 0)// 在minTimeLength之下
             {
                 mIvNextStep.setVisibility(View.GONE);

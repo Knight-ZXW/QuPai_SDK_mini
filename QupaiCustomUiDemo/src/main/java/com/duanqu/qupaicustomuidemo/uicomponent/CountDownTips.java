@@ -23,6 +23,7 @@ public class CountDownTips implements CountDownSwitch.OnTimerListener {
     private final View _CountDownTip; //提示的UI
     private final View _SwitchCamera;
     private final View _ViewDeleteClip;
+    private final View _mViewRecord;
 
     private MediaPlayer _Player;
     private Handler mHandler;
@@ -35,8 +36,8 @@ public class CountDownTips implements CountDownSwitch.OnTimerListener {
 
     private OnCountDownRecordListener _RecordListener;
 
-    public CountDownTips(TextView TextView_text, View view_tip,View switch_camera,View view_delete_clip, Context context, OnCountDownRecordListener recordListener) {
-
+    public CountDownTips(View recordBtn,TextView TextView_text, View view_tip,View switch_camera,View view_delete_clip, Context context, OnCountDownRecordListener recordListener) {
+        _mViewRecord =recordBtn;
         _CountDownText = TextView_text;
         _CountDownTip  = view_tip;
         _SwitchCamera = switch_camera;
@@ -56,7 +57,7 @@ public class CountDownTips implements CountDownSwitch.OnTimerListener {
     @Override
     public void onTimerStart() {
         _CountDownTip.setVisibility(View.VISIBLE);
-
+        _mViewRecord.setEnabled(false);//不让点击拍摄按钮了
         mDelaySeconds = mCountdownDelay / 1000;
 
         Message msg = mHandler.obtainMessage(WHAT_COUNTDOWN_START, this);
@@ -113,6 +114,7 @@ public class CountDownTips implements CountDownSwitch.OnTimerListener {
             _CountDownText.setVisibility(View.GONE);
             _SwitchCamera.setEnabled(false);
             _ViewDeleteClip.setEnabled(false);
+            _mViewRecord.setEnabled(true);
             _RecordListener.onRecordStart();
             return;
         }
