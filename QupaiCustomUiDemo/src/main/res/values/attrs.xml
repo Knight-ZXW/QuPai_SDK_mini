@@ -58,4 +58,7 @@
         </attr>
     </declare-styleable>
 
+    <declare-styleable name="RotateImageView">
+        <attr name="angle" format="integer"/>
+    </declare-styleable>
 </resources>

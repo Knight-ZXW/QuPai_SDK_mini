@@ -32,6 +32,7 @@ import com.duanqu.qupaicustomuidemo.uicomponent.CountDownTips;
 import com.duanqu.qupaicustomuidemo.uicomponent.TimeProgress;
 import com.duanqu.qupaicustomuidemo.uicomponent.TimelineTimeLayout;
 import com.duanqu.qupaicustomuidemo.utils.MySystemParams;
+import com.duanqu.qupaicustomuidemo.widget.RotateImageView;
 
 import java.io.Serializable;
 import java.util.List;
@@ -60,9 +61,9 @@ public class RecordActivity extends AppCompatActivity implements EasyPermissions
     private ImageView mIvDeleteClip;
     private ImageView mIvRecord;
     private ImageView mIvNextStep;
-    private ImageView swtichLight;
-    private ImageView mCameraSwitch;
-    private ImageView mIvCountDown;
+    private RotateImageView mSwitchLight;
+    private RotateImageView mCameraSwitch;
+    private RotateImageView mIvCountDown;
     private ImageView mChooseBgMusic;
 
     RotationObserver rotationObserver;
@@ -175,16 +176,16 @@ public class RecordActivity extends AppCompatActivity implements EasyPermissions
         mIvDeleteClip.setEnabled(false);
 
         //闪光灯
-        swtichLight = (ImageView) findViewById(R.id.switch_light);
-        swtichLight.setOnClickListener(mViewMonitor);
+        mSwitchLight = (RotateImageView) findViewById(R.id.switch_light);
+        mSwitchLight.setOnClickListener(mViewMonitor);
 
         //摄像头翻转
-        mCameraSwitch = (ImageView) findViewById(R.id.ImageButton_cameraSwitch);
+        mCameraSwitch = (RotateImageView) findViewById(R.id.ImageButton_cameraSwitch);
         mCameraSwitch.setOnClickListener(mViewMonitor);
 
 
         //倒计时拍摄
-        mIvCountDown = (ImageView) findViewById(R.id.ImageButton_countdownSwitch);
+        mIvCountDown = (RotateImageView) findViewById(R.id.ImageButton_countdownSwitch);
         CountDownTips countdown_tips = new CountDownTips(
                 mIvRecord,
                 (TextView) findViewById(R.id.TextView_countdownTips),
@@ -241,9 +242,9 @@ public class RecordActivity extends AppCompatActivity implements EasyPermissions
 
         //默认如果是前置摄像头隐藏闪光灯
         if (mRecordView.isFrontCamera()) {
-            swtichLight.setVisibility(View.GONE);
+            mSwitchLight.setVisibility(View.GONE);
         } else {
-            swtichLight.setVisibility(View.VISIBLE);
+            mSwitchLight.setVisibility(View.VISIBLE);
         }
     }
 
@@ -301,12 +302,12 @@ public class RecordActivity extends AppCompatActivity implements EasyPermissions
 //                    startRecord();
 ////                        mCameraSwitch.setActivated(false);
 //                    mIvCountDown.setActivated(false);
-//                    swtichLight.setActivated(false);
+//                    mSwitchLight.setActivated(false);
 //                    mCameraSwitch.setEnabled(false);
 //                } else if (recordState == State.PAUSE) {
 //                    resumeRecord();
 ////                        mCameraSwitch.setActivated(true);
-//                    swtichLight.setActivated(true);
+//                    mSwitchLight.setActivated(true);
 //                    mCameraSwitch.setEnabled(true);
 //                } else if (recordState == State.RESUME) {
 //                    mIvCountDown.setActivated(false);
@@ -377,7 +378,7 @@ public class RecordActivity extends AppCompatActivity implements EasyPermissions
             mChooseBgMusic.setVisibility(View.GONE);
             startRecord();
             mIvCountDown.setActivated(false);
-            swtichLight.setActivated(false);
+            mSwitchLight.setActivated(false);
             mCameraSwitch.setEnabled(false);
             mIvRecord.setActivated(true);
         } else if (recordState == State.PAUSE) {//如果是暂停状态 则继续录制
@@ -387,7 +388,7 @@ public class RecordActivity extends AppCompatActivity implements EasyPermissions
             }
             resumeRecord();
 //                        mCameraSwitch.setActivated(true);
-            swtichLight.setActivated(true);
+            mSwitchLight.setActivated(true);
             mCameraSwitch.setEnabled(true);
             mIvRecord.setActivated(true);
         } else if (recordState == State.RESUME) {//如果是录制状态，则
@@ -502,9 +503,9 @@ public class RecordActivity extends AppCompatActivity implements EasyPermissions
         if (ret.ordinal() <= RecorderInterface.ReturnCode.WARNING_UNKNOWN.ordinal())//判断是否成功
         {
             if (mRecordView.isFrontCamera()) {
-                swtichLight.setVisibility(View.GONE);
+                mSwitchLight.setVisibility(View.GONE);
             } else {
-                swtichLight.setVisibility(View.VISIBLE);
+                mSwitchLight.setVisibility(View.VISIBLE);
             }
         }
     }
@@ -521,9 +522,9 @@ public class RecordActivity extends AppCompatActivity implements EasyPermissions
         {
             lightSwitch = ord;
             if (lightSwitch == RecorderInterface.QupaiSwitch.OPEN)//更改状态记录
-                swtichLight.setActivated(true);
+                mSwitchLight.setActivated(true);
             else
-                swtichLight.setActivated(false);
+                mSwitchLight.setActivated(false);
         }
         return ret;
     }
@@ -621,12 +622,16 @@ public class RecordActivity extends AppCompatActivity implements EasyPermissions
 
         @Override
         protected void onRotationChange(int rotation) {
-            Log.i("dang", "rotate1 change " + rotation);
+            Log.e("rotation", "rotate1 change " + rotation);
             if (isSupportSensor) {
                 recordRotate = rotation;
+
+                float rotateRotation =- mCameraSwitch.getRotation();
+                mCameraSwitch.setRotation(-rotation);
+                mIvCountDown.setRotation(-rotation);
+                mSwitchLight.setRotation(-rotation);
             } else {
                 recordRotate = defaultRotate;
-
             }
         }
     }
