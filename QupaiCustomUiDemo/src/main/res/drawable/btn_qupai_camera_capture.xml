@@ -4,6 +4,7 @@
     <item android:drawable="@drawable/btn_qupai_camera_capture_disabled" android:state_enabled="false"/>
     <item android:drawable="@drawable/btn_qupai_camera_capture_pressed" android:state_pressed="true"/>
     <item android:drawable="@drawable/btn_qupai_camera_capture_pressed" android:state_activated="true"/>
+    <item android:drawable="@drawable/btn_qupai_camera_capture_normal" android:state_activated="false"/>
 
     <item android:drawable="@drawable/btn_qupai_camera_capture_normal"/>
 

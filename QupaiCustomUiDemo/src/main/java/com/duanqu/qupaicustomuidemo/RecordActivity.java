@@ -4,8 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -39,13 +37,13 @@ import java.io.Serializable;
 import java.util.List;
 
 
-public class RecordActivity2 extends AppCompatActivity implements EasyPermissions.PermissionCallbacks {
+public class RecordActivity extends AppCompatActivity implements EasyPermissions.PermissionCallbacks {
 
     private String projectpath;
     private RecorderInterface.ReturnCode ret;//每个操作的返回状态
     RecorderInterface.QupaiSwitch lightSwitch = RecorderInterface.QupaiSwitch.CLOSE; //记录闪光灯开关状态
 
-    boolean isRsume; //记录activity 状态
+    boolean isResume; //记录activity 状态
 
     //记录视频录制状态
     private enum State {
@@ -71,7 +69,11 @@ public class RecordActivity2 extends AppCompatActivity implements EasyPermission
     private boolean isSupportSensor = false;
     private int defaultRotate = 0;
     private int recordRotate = 0;
-
+    private boolean isPausing = false;
+    private long startTime = 0l; //上次录制开始的时刻
+    private boolean isDeleteActive = false;
+    long recorderProgressTime; //录制回调时 当前progress 对应的系统时间
+    long videoDuration = 0; //
     private State recordState = State.STOP;
 
     TimelineTimeLayout timeLayout;
@@ -122,7 +124,7 @@ public class RecordActivity2 extends AppCompatActivity implements EasyPermission
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_record3);
+        setContentView(R.layout.activity_record);
 
         _Request = PageRequest.from(this);
 
@@ -248,14 +250,14 @@ public class RecordActivity2 extends AppCompatActivity implements EasyPermission
         super.onResume();
         RecorderInterface.ReturnCode ret = mRecordView.onResume();
         if (ret.ordinal() <= RecorderInterface.ReturnCode.WARNING_UNKNOWN.ordinal())
-            isRsume = true;
+            isResume = true;
 
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        if (isRsume) {
+        if (isResume) {
             mRecordView.onPause();
             if (mIvCountDown.isActivated()) {
                 mIvCountDown.callOnClick();
@@ -265,7 +267,7 @@ public class RecordActivity2 extends AppCompatActivity implements EasyPermission
                 mCameraSwitch.setEnabled(true);
             }
 
-            isRsume = false;
+            isResume = false;
 
         }
     }
@@ -277,12 +279,9 @@ public class RecordActivity2 extends AppCompatActivity implements EasyPermission
     }
 
 
-    private boolean isPausing = false;
-    private long startTime = 0l; //上次录制开始的时刻
+
 
     class ViewMonitor implements View.OnClickListener {
-
-
 //        @Override
 //        public boolean onTouch(View v, MotionEvent motionEvent) {//拍照按钮的 on Touch
 //            int action = motionEvent.getActionMasked();
@@ -338,7 +337,7 @@ public class RecordActivity2 extends AppCompatActivity implements EasyPermission
                     detailDelete();
                     break;
                 case R.id.imageView_nextBtn:
-                    stopRecord();
+                    finishRecord();
                     break;
                 case R.id.ImageView_backspace:
                     onBackPressed();
@@ -363,7 +362,7 @@ public class RecordActivity2 extends AppCompatActivity implements EasyPermission
         if (isPausing || !isPartCompleted) return;
         //如果进度条是0，则是初始化的情况
 
-        mIvRecord.setImageResource(R.drawable.btn_qupai_camera_capture_pressed);
+//        mIvRecord.setImageResource(R.drawable.btn_qupai_camera_capture_pressed);
         if (recordState == State.STOP) {//如果是停止状态则开始录制
             startTime = System.currentTimeMillis();
             mChooseBgMusic.setVisibility(View.GONE);
@@ -372,24 +371,26 @@ public class RecordActivity2 extends AppCompatActivity implements EasyPermission
             mIvCountDown.setActivated(false);
             swtichLight.setActivated(false);
             mCameraSwitch.setEnabled(false);
+            mIvRecord.setActivated(true);
         } else if (recordState == State.PAUSE) {//如果是暂停状态 则继续录制
             resumeRecord();
 //                        mCameraSwitch.setActivated(true);
             swtichLight.setActivated(true);
             mCameraSwitch.setEnabled(true);
+            mIvRecord.setActivated(true);
         } else if (recordState == State.RESUME) {//如果是录制状态，则
             mIvCountDown.setActivated(false);
             mCameraSwitch.setEnabled(false);
+            mIvRecord.setActivated(false);
             pauseRecord();
         } else {//如果是 start 则暂停
             isPausing = true;
             mCameraSwitch.setEnabled(true);
-            mIvRecord.setImageResource(R.drawable.btn_qupai_camera_capture_normal);
+            mIvRecord.setActivated(false);
             pauseRecord();
         }
     }
 
-    private boolean isDeleteActive = false;
 
     private void detailDelete() {
         if (isDeleteActive)//判断状态，确认删除
@@ -404,6 +405,8 @@ public class RecordActivity2 extends AppCompatActivity implements EasyPermission
                 if (mRecordView.getPartCount() == 0) {
                     // 没有part ，可以再显示背景音乐了
                     mChooseBgMusic.setVisibility(View.VISIBLE);
+                    mIvDeleteClip.setEnabled(false);
+                    mIvNextStep.setVisibility(View.GONE);
 //                    mTvGallery.setVisibility(View.VISIBLE);
                 }
             }
@@ -416,23 +419,22 @@ public class RecordActivity2 extends AppCompatActivity implements EasyPermission
         }
     }
 
-    long time;
-    long videoDuration = 0;
+
     RecorderCallback recorderCallback = new RecorderCallback() {
 
         @Override
         public void onProgress(long timestamp) {
             Log.i("qupai", "onProgress" + timestamp);
-            time = timestamp;
-            timeLayout.update(time);//更新timeLayout
-            if (time >= maxTimeLength) {
-                stopRecord();
-            } else if (time >= minTimeLength) {//时长超过了最短的限制，则会显示下一步
+            recorderProgressTime = timestamp;
+            timeLayout.update(recorderProgressTime);//更新timeLayout
+            if (recorderProgressTime >= maxTimeLength) {
+                finishRecord();
+            } else if (recorderProgressTime >= minTimeLength) {//时长超过了最短的限制，则会显示下一步
                 mIvNextStep.setVisibility(View.VISIBLE);
-            } else if (time > 0)// 在minTimeLength之下
+            } else if (recorderProgressTime > 0)// 在minTimeLength之下
             {
                 mIvNextStep.setVisibility(View.GONE);
-            } else if (time == 0) {
+            } else if (recorderProgressTime == 0) {
                 //如果没有可以删除的，则变灰
                 mIvDeleteClip.setActivated(false);
             }
@@ -451,7 +453,7 @@ public class RecordActivity2 extends AppCompatActivity implements EasyPermission
 
             new EditorActivity.Request(new VideoSessionClientFactoryImpl(), null)
                     .setProjectUri(Uri.parse(projectpath + "/project.json"))
-                    .startForResult(RecordActivity2.this, RenderRequest.RENDER_MODE_EXPORT_VIDEO);
+                    .startForResult(RecordActivity.this, RenderRequest.RENDER_MODE_EXPORT_VIDEO);
         }
 
         @Override
@@ -524,7 +526,9 @@ public class RecordActivity2 extends AppCompatActivity implements EasyPermission
             recordState = State.START;
         } else
             mIvRecord.setImageResource(R.drawable.btn_qupai_camera_capture_normal);
+
         showToast(ret.toString());
+        mChooseBgMusic.setVisibility(View.GONE);
         return ret;
     }
 
@@ -543,26 +547,26 @@ public class RecordActivity2 extends AppCompatActivity implements EasyPermission
 
     //恢复录制
     private RecorderInterface.ReturnCode resumeRecord() {
+        mChooseBgMusic.setVisibility(View.GONE);
+
         ret = mRecordView.resumeRecord();
+
         if (ret.ordinal() <= RecorderInterface.ReturnCode.WARNING_UNKNOWN.ordinal()) {
             mIvDeleteClip.setEnabled(false);
             mIvDeleteClip.setActivated(false);
             isDeleteActive = false;
             recordState = State.RESUME;
-            isDeleteActive = false;
         } else
             mIvRecord.setImageResource(R.drawable.btn_qupai_camera_capture_normal);
         showToast(ret.toString());
-
         return ret;
     }
 
     private long stopTime = 0l;
 
     //调用生成视频，异步生成，会在视频生成后有OnCompletion 回调
-    private RecorderInterface.ReturnCode stopRecord() {
+    private RecorderInterface.ReturnCode finishRecord() {
 
-        handler.removeMessages(0x1111);
         mIvDeleteClip.setActivated(false);
         isDeleteActive = false;
         mIvDeleteClip.setVisibility(View.GONE);
@@ -584,7 +588,7 @@ public class RecordActivity2 extends AppCompatActivity implements EasyPermission
     public void showToast(String text) {
 
         if (toast == null) {
-            toast = Toast.makeText(RecordActivity2.this, text, Toast.LENGTH_SHORT);
+            toast = Toast.makeText(RecordActivity.this, text, Toast.LENGTH_SHORT);
         } else {
             toast.setText(text);
             toast.setDuration(Toast.LENGTH_SHORT);
@@ -592,20 +596,6 @@ public class RecordActivity2 extends AppCompatActivity implements EasyPermission
         toast.show();
     }
 
-
-    Handler handler = new Handler() {
-
-        @Override
-        public void handleMessage(Message msg) {
-            switch (msg.what) {
-                case 0x1111:
-                    pauseRecord();  //延长执行暂停操作，不建议点录
-                    break;
-                default:
-                    break;
-            }
-        }
-    };
 
     /**
      * 旋转角度的Observer
@@ -685,7 +675,7 @@ public class RecordActivity2 extends AppCompatActivity implements EasyPermission
     public void onPermissionsGranted(int requestCode, List<String> perms) {
         if (requestCode == RC_EXTERNAL_STORAGE) {
             new ImportActivity.Request(new VideoSessionClientFactoryImpl(), null)
-                    .startForResult(RecordActivity2.this, RenderRequest.RENDER_MODE_EXPORT_VIDEO);
+                    .startForResult(RecordActivity.this, RenderRequest.RENDER_MODE_EXPORT_VIDEO);
         }
     }
 }

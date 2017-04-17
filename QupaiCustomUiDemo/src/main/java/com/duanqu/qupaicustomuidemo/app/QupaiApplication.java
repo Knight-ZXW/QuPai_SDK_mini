@@ -93,7 +93,7 @@ public class QupaiApplication extends Application {
                 .setIFrameInterval(2)
                 .setVideoSize(480 , 640)
                 //时长区间.单位：毫秒
-                .setDurationRange(1000, 17000)
+                .setDurationRange(500, 17000)
                 .get();
 
         MovieExportOptions movieExportOptions =

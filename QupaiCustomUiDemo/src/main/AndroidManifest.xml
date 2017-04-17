@@ -48,7 +48,7 @@
             android:name=".trim.VideoTrimActivity"
             android:theme="@style/Theme.Qupai.Video.Default" />
         <activity
-            android:name=".RecordActivity2"
+            android:name=".RecordActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Qupai.Video.Default" />
         <activity

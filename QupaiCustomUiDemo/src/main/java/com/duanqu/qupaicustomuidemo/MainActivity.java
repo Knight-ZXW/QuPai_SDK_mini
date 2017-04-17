@@ -11,17 +11,12 @@ import android.widget.Toast;
 import cn.finalteam.galleryfinal.GalleryFinal;
 import cn.finalteam.galleryfinal.model.PhotoInfo;
 import com.duanqu.qupai.bean.PhotoModule;
-import com.duanqu.qupai.engine.session.MovieExportOptions;
-import com.duanqu.qupai.engine.session.ProjectOptions;
-import com.duanqu.qupai.engine.session.ThumbnailExportOptions;
-import com.duanqu.qupai.engine.session.VideoSessionCreateInfo;
 import com.duanqu.qupai.permission.AppSettingsDialog;
 import com.duanqu.qupai.permission.EasyPermissions;
 import com.duanqu.qupaicustomuidemo.Auth.AuthTest;
 import com.duanqu.qupaicustomuidemo.app.QupaiApplication;
 import com.duanqu.qupaicustomuidemo.engine.session.RenderRequest;
 import com.duanqu.qupaicustomuidemo.engine.session.VideoSessionClientFactoryImpl;
-import com.duanqu.qupaicustomuidemo.engine.session.VideoSessionClientImpl;
 import com.duanqu.qupaicustomuidemo.photocompose.render.PhotoProgressActivity;
 import com.duanqu.qupaicustomuidemo.trim.drafts.ImportActivity;
 import com.duanqu.qupaicustomuidemo.utils.Constant;
@@ -105,7 +100,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         String[] perms = { Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO };
         if (EasyPermissions.hasPermissions(this, perms)) {
             // Have permissions, do the thing!
-            new RecordActivity2.Request(new VideoSessionClientFactoryImpl(), null)
+            new RecordActivity.Request(new VideoSessionClientFactoryImpl(), null)
                     .startForResult(MainActivity.this, RenderRequest.RENDER_MODE_EXPORT_VIDEO);
         } else {
             // Ask for both permissions
@@ -183,7 +178,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onPermissionsGranted(int requestCode, List<String> perms) {
         Log.d(TAG, "onPermissionsGranted:" + requestCode + ":" + perms.size());
         if(requestCode == RC_CAMERA_PERM){
-            new RecordActivity2.Request(new VideoSessionClientFactoryImpl(), null)
+            new RecordActivity.Request(new VideoSessionClientFactoryImpl(), null)
                     .startForResult(MainActivity.this, RenderRequest.RENDER_MODE_EXPORT_VIDEO);
         } else if (requestCode == RC_EXTERNAL_STORAGE) {
             new ImportActivity.Request(new VideoSessionClientFactoryImpl(), null)
