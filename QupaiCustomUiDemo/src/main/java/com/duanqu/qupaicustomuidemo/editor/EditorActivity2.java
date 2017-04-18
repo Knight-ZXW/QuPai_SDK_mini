@@ -5,7 +5,6 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -179,14 +178,6 @@ public class EditorActivity2 extends Activity implements View.OnClickListener, O
             }
         });
 
-        //静音功能
-        findViewById(R.id.silence).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                _Player.setAudioSilence(!_Player.isAudioSilence());
-            }
-        });
-
         _Player.setOnPlayStateChangeListener(new Player.OnPlayStateChangeListener() {
             @Override
             public void onPlayStateChanged(boolean paused) {
@@ -204,8 +195,6 @@ public class EditorActivity2 extends Activity implements View.OnClickListener, O
         LinearLayout effectListAudioMixContainer = (LinearLayout) findViewById(R.id.effect_audio_mix_container);
         FrameLayout effectCaptionMixContainer = (FrameLayout) findViewById(R.id.effect_list_caption_container);
         FrameLayout effectVideoCoverContainer = (FrameLayout) findViewById(R.id.effect_video_cover_container);
-
-        RecyclerView effect_list_view_caption = (RecyclerView) findViewById(R.id.effect_list_caption);
 
 
         ViewStack view_stack = new ViewStack(View.INVISIBLE);

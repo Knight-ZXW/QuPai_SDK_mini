@@ -174,7 +174,7 @@ public class OverlayListAdapter extends RecyclerView.Adapter<ViewHolder>
         Log.d("active", "adapter_pos:" + adapter_pos + "_HeaderList.length:" + _HeaderList.length);
     }
 
-    private boolean _TitleVisible = true;
+    private boolean _TitleVisible = false;
 
     public void setTitleVisible(boolean visible) {
         _TitleVisible = visible;
