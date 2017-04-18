@@ -3,7 +3,12 @@ package com.duanqu.qupaicustomuidemo.editor;
 import android.app.Activity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import com.duanqu.qupai.asset.*;
+import android.view.View;
+
+import com.duanqu.qupai.asset.AssetGroup;
+import com.duanqu.qupai.asset.AssetInfo;
+import com.duanqu.qupai.asset.AssetRepository;
+import com.duanqu.qupai.asset.AssetRepositoryClient;
 import com.duanqu.qupai.effect.EffectService;
 import com.duanqu.qupai.effect.OnRenderChangeListener;
 import com.duanqu.qupai.effect.RenderEditService;
@@ -11,9 +16,10 @@ import com.duanqu.qupai.project.UIEditorPage;
 import com.duanqu.qupai.project.UIEditorPageProxy;
 import com.duanqu.qupaicustomuidemo.R;
 
-import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.annotation.Nonnull;
 
 public class CaptionChooserMediator extends EditParticipant
 implements OverlayListAdapter.OnItemClickListener, OnRenderChangeListener,
@@ -26,15 +32,15 @@ implements OverlayListAdapter.OnItemClickListener, OnRenderChangeListener,
     private final EffectService effectService;
     private EditorSession session;
 
-    public CaptionChooserMediator(RecyclerView view, EffectService service,
+    public CaptionChooserMediator(View containerView, EffectService service,
                                   AssetRepositoryClient repo, EditorSession session) {
-        _ListView = view;
+        _ListView = (RecyclerView) containerView.findViewById(R.id.effect_list_caption);;
         _ListView.setItemAnimator(null);
         this.effectService = service;
         this.session = session;
         _Repo = repo;
         _Repo.addListener(AssetRepository.Kind.FONT, this);
-        LinearLayoutManager lm = new LinearLayoutManager(view.getContext(),
+        LinearLayoutManager lm = new LinearLayoutManager(containerView.getContext(),
                 LinearLayoutManager.HORIZONTAL, false);
         _ListView.setLayoutManager(lm);
 

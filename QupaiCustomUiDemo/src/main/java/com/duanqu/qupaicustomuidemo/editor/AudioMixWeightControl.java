@@ -11,35 +11,39 @@ import com.duanqu.qupaicustomuidemo.R;
 public class AudioMixWeightControl
         implements OnSeekBarChangeListener, OnRenderChangeListener {
 
-    private final SeekBar _SeekBar;
-    private final Player _Player;
+    private final SeekBar mixMusicSeekBar;
+    private final SeekBar mixPrimaryAudioSeekBar;
+    private final Player mPlayer;
     private final RenderEditService renderEditService;
 
-    private final View _MusicTrackText;
 
     public AudioMixWeightControl(View view, RenderEditService renderService, Player player) {
-        _Player = player;
+        mPlayer = player;
         renderEditService = renderService;
 
-        _SeekBar = (SeekBar) view.findViewById(R.id.sb_audio_mix_weight);
-        _SeekBar.setOnSeekBarChangeListener(this);
-        _SeekBar.setClickable(true);
-        _SeekBar.setEnabled(true);
+        mixMusicSeekBar = (SeekBar) view.findViewById(R.id.sb_audio_mix_weight);
+        mixMusicSeekBar.setOnSeekBarChangeListener(this);
 
-        _MusicTrackText = view.findViewById(R.id.txt_track_music);
+        mixPrimaryAudioSeekBar = (SeekBar) view.findViewById(R.id.sb_audio_primary_audio_weight);
+        mixPrimaryAudioSeekBar.setOnSeekBarChangeListener(this);
+
     }
 
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-        float weight = (float) progress / seekBar.getMax();
+        if (seekBar.getId() ==R.id.sb_audio_mix_weight){
+            float weight = (float) progress / seekBar.getMax();
 
-        _Player.setAudioMixWeight(1 - weight);
+            mPlayer.setAudioMixWeight(weight);
 
-        if (!fromUser) {
-            return;
+        } else if (seekBar.getId() ==R.id.sb_audio_primary_audio_weight){
+            if (!fromUser) {
+                return;
+            }
+            float weight = (float) progress / seekBar.getMax();
+            renderEditService.setRenderPrimaryAudioWeight(weight);
         }
 
-        renderEditService.setRenderPrimaryAudioWeight(1 - weight);
 
     }
 
@@ -56,8 +60,7 @@ public class AudioMixWeightControl
     @Override
     public void onRenderChange(RenderEditService service) {
         float weight = service.getRenderPrimaryAudioWeight();
-
-        _SeekBar.setProgress((int) ((1 - weight) * _SeekBar.getMax()));
+        mixPrimaryAudioSeekBar.setProgress((int)weight * mixPrimaryAudioSeekBar.getMax());
     }
 
 }

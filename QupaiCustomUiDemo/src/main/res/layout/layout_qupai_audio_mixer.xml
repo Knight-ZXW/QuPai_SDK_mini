@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <TextView
+        android:id="@+id/txt_audio_primary_audio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="8dp"
+        android:text="原声"
+        android:textSize="12sp" />
+
+    <SeekBar
+        android:id="@+id/sb_audio_primary_audio_weight"
+        style="@style/Qupai.Widget.Default.SeekBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="12dp"
+        android:layout_toRightOf="@id/txt_audio_primary_audio"
+        android:layout_weight="1"
+        android:max="1000"
+        android:progressDrawable="@drawable/sb_progress_qupai_audio_mix_weight"
+        android:splitTrack="false"
+        tools:layout_editor_absoluteY="6dp" />
+
+    <TextView
+        android:id="@+id/txt_audio_mix"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txt_audio_primary_audio"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="8dp"
+        android:text="配乐"
+        android:textSize="12sp" />
+
+    <SeekBar
+        android:id="@+id/sb_audio_mix_weight"
+        style="@style/Qupai.Widget.Default.SeekBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/sb_audio_primary_audio_weight"
+        android:layout_marginLeft="12dp"
+        android:layout_toRightOf="@id/txt_audio_mix"
+        android:max="1000"
+        android:progressDrawable="@drawable/sb_progress_qupai_audio_mix_weight"
+        android:splitTrack="false"
+        tools:layout_editor_absoluteY="31dp" />
+</RelativeLayout>

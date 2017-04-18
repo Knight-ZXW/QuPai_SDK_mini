@@ -3,6 +3,8 @@ package com.duanqu.qupaicustomuidemo.editor;
 import android.app.Activity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+
 import com.duanqu.qupai.asset.AssetGroup;
 import com.duanqu.qupai.asset.AssetInfo;
 import com.duanqu.qupai.asset.AssetRepository;
@@ -14,10 +16,14 @@ import com.duanqu.qupai.project.UIEditorPage;
 import com.duanqu.qupai.project.UIEditorPageProxy;
 import com.duanqu.qupaicustomuidemo.R;
 
-import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.Nonnull;
+
+/**
+ * 贴纸选择器
+ */
 public class DIYChooserMediator extends EditParticipant
 implements OverlayListAdapter.OnItemClickListener, OnRenderChangeListener,
         AssetRepositoryClient.Listener {
@@ -28,14 +34,14 @@ implements OverlayListAdapter.OnItemClickListener, OnRenderChangeListener,
     AssetRepositoryClient _Repo;
     private final EffectService effectService;
 
-    public DIYChooserMediator(RecyclerView view, EffectService service,
+    public DIYChooserMediator(View containerView,EffectService service,
                               AssetRepositoryClient repo, EditorSession session) {
-        _ListView = view;
+        _ListView = (RecyclerView) containerView.findViewById(R.id.effect_paster);;
         _ListView.setItemAnimator(null);
         this.effectService = service;
         _Repo = repo;
         _Repo.addListener(AssetRepository.Kind.DIY, this);
-        LinearLayoutManager lm = new LinearLayoutManager(view.getContext(),
+        LinearLayoutManager lm = new LinearLayoutManager(containerView.getContext(),
                 LinearLayoutManager.HORIZONTAL, false);
         _ListView.setLayoutManager(lm);
 

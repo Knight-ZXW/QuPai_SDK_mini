@@ -93,12 +93,7 @@
                 android:scaleType="fitXY"
                 android:src="@drawable/edit_diyoverlay_qupai_preview_selector" />
 
-            <include
-                android:id="@+id/audio_mix_weight_control"
-                layout="@layout/qupai_audio_mixer_slider"
-                android:layout_width="match_parent"
-                android:layout_height="54dp"
-                android:layout_gravity="bottom" />
+
         </LinearLayout>
     </com.duanqu.qupai.android.widget.AspectRatioLayout>
     <FrameLayout
@@ -135,32 +130,56 @@
         android:layout_weight="1"
         android:layout_gravity="center_vertical"
         android:background="@color/qupai_gray_0xd4">
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/effect_paster"
+        <FrameLayout
+            android:id="@+id/effect_paster_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/effect_paster"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"/>
+        </FrameLayout>
+
+
+
+        <LinearLayout
+            android:id="@+id/effect_audio_mix_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_gravity="center_vertical"/>
+            android:layout_gravity="center_vertical"
+            android:orientation="vertical">
+            <include
+            android:id="@+id/audio_mix_weight_control"
+            layout="@layout/layout_qupai_audio_mixer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+             />
+        </LinearLayout>
 
 
         <FrameLayout
-            android:id="@+id/effect_audio_mix"
+            android:id="@+id/effect_list_caption_container"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center_vertical"/>
+            android:layout_height="wrap_content">
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/effect_list_caption"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"/>
+        </FrameLayout>
 
-
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/effect_list_caption"
+        <FrameLayout
+            android:id="@+id/effect_video_cover_container"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center_vertical"/>
+            android:layout_height="wrap_content">
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/effect_video_cover"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"/>
+        </FrameLayout>
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/effect_video_cover"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center_vertical"/>
 
     </FrameLayout>
     <LinearLayout

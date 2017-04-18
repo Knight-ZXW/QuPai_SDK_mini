@@ -12,6 +12,7 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.duanqu.qupai.android.widget.AspectRatioLayout;
 import com.duanqu.qupai.asset.AssetID;
@@ -117,6 +118,7 @@ public class EditorActivity2 extends Activity implements View.OnClickListener, O
         //创建一个资源仓库，提供滤镜和音乐资源
         _SessionClient = _Request.getVideoSessionClient(this);
         dataProvider = _SessionClient.getAssetRepository();
+
         _RepoClient= new AssetRepositoryClient(dataProvider);
         setContentView(R.layout.activity_editor2);
 
@@ -164,7 +166,6 @@ public class EditorActivity2 extends Activity implements View.OnClickListener, O
         AspectRatioLayout video_frame = (AspectRatioLayout) findViewById(R.id.video);
         video_frame.setOriginalSize(480, 480);
 
-        ViewStack view_stack = new ViewStack(View.INVISIBLE);
 
         final View preview = findViewById(R.id.preview);
         preview.setOnClickListener(new View.OnClickListener() {
@@ -199,39 +200,46 @@ public class EditorActivity2 extends Activity implements View.OnClickListener, O
         tab_group.addView(findViewById(R.id.tab_effect_caption));
         tab_group.addView(findViewById(R.id.tab_video_cover));
 
-        FrameLayout effect_list_audio_mix = (FrameLayout) findViewById(R.id.effect_audio_mix);
+        FrameLayout effectPasterContainer = (FrameLayout) findViewById(R.id.effect_paster_container);
+        LinearLayout effectListAudioMixContainer = (LinearLayout) findViewById(R.id.effect_audio_mix_container);
+        FrameLayout effectCaptionMixContainer = (FrameLayout) findViewById(R.id.effect_list_caption_container);
+        FrameLayout effectVideoCoverContainer = (FrameLayout) findViewById(R.id.effect_video_cover_container);
+
         RecyclerView effect_list_view_caption = (RecyclerView) findViewById(R.id.effect_list_caption);
-        RecyclerView effect_list_view_overlay = (RecyclerView) findViewById(R.id.effect_paster);
-        RecyclerView effect_video_cover = (RecyclerView) findViewById(R.id.effect_video_cover);
-
-        view_stack.addView(effect_list_view_overlay);
-        view_stack.addView(effect_list_audio_mix);
-        view_stack.addView(effect_list_view_caption);
-        view_stack.addView(effect_video_cover);
 
 
-        //字幕选择器
+        ViewStack view_stack = new ViewStack(View.INVISIBLE);
+        view_stack.addView(effectPasterContainer);
+        view_stack.addView(effectListAudioMixContainer);
+        view_stack.addView(effectCaptionMixContainer);
+        view_stack.addView(effectVideoCoverContainer);
+
         EffectService overlayEffectService = editorService.getEffectUseService(AssetInfo.TYPE_DIYOVERLAY);
         OverlayUIManager overlayUIManager = new OverlayUIManager(this, dataProvider,
                 overlayEffectService, _Player);
         overlayEffectService.setOverlayManager(overlayUIManager);
-        CaptionChooserMediator captionChooser = new CaptionChooserMediator(
-                effect_list_view_caption, overlayEffectService, _RepoClient, _EditorSession);
-        editorService.addOnRenderChangeListener(captionChooser);
 
         //动图选择器
-        DIYChooserMediator overlayChooser = new DIYChooserMediator(
-                effect_list_view_overlay, overlayEffectService, _RepoClient, _EditorSession);
+        DIYChooserMediator overlayChooser = new DIYChooserMediator(effectPasterContainer,
+                 overlayEffectService, _RepoClient, _EditorSession);
         editorService.addOnRenderChangeListener(overlayChooser);
+
+        //字幕选择器
+        CaptionChooserMediator captionChooser = new CaptionChooserMediator(effectCaptionMixContainer,
+                 overlayEffectService, _RepoClient, _EditorSession);
+        editorService.addOnRenderChangeListener(captionChooser);
 
         //音乐选择,音量调节
         View audio_mix_weight_control = findViewById(R.id.audio_mix_weight_control);
         AudioMixWeightControl mixWeightControl = new AudioMixWeightControl(audio_mix_weight_control, renderEditService, _Player);
         editorService.addOnRenderChangeListener(mixWeightControl);
+
         EffectService musicEffect = editorService.getEffectUseService(AssetInfo.TYPE_MUSIC);
+
 //        AudioMixChooserMediator2 audio_page = new AudioMixChooserMediator2(effect_list_audio_mix, audio_mix_weight_control,
 //                musicEffect, _RepoClient, _EditorSession, renderEditService.getRenderRotation());
         AudioMixChooserMediator audio_page = new AudioMixChooserMediator();
+
         editorService.addOnRenderChangeListener(audio_page);
 
         //封面
